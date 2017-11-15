@@ -12,44 +12,44 @@ using Another_one_backend.Models;
 
 namespace Another_one_backend.Controllers
 {
-    public class StoresController : ApiController
+    public class CategoriesController : ApiController
     {
         private AnotherOneMobileAppEntities db = new AnotherOneMobileAppEntities();
 
-        // GET: api/Stores
-        public IQueryable<Store> GetStore()
+        // GET: api/Categories
+        public IQueryable<Category> GetCategory()
         {
-            return db.Store;
+            return db.Category;
         }
 
-        // GET: api/Stores/5
-        [ResponseType(typeof(Store))]
-        public IHttpActionResult GetStore(int id)
+        // GET: api/Categories/5
+        [ResponseType(typeof(Category))]
+        public IHttpActionResult GetCategory(int id)
         {
-            Store store = db.Store.Find(id);
-            if (store == null)
+            Category category = db.Category.Find(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return Ok(store);
+            return Ok(category);
         }
 
-        // PUT: api/Stores/5
+        // PUT: api/Categories/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutStore(int id, Store store)
+        public IHttpActionResult PutCategory(int id, Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != store.Id)
+            if (id != category.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(store).State = EntityState.Modified;
+            db.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace Another_one_backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StoreExists(id))
+                if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace Another_one_backend.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Stores
-        [ResponseType(typeof(Store))]
-        public IHttpActionResult PostStore(Store store)
+        // POST: api/Categories
+        [ResponseType(typeof(Category))]
+        public IHttpActionResult PostCategory(Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Store.Add(store);
+            db.Category.Add(category);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = store.Id }, store);
+            return CreatedAtRoute("DefaultApi", new { id = category.Id }, category);
         }
 
-        // DELETE: api/Stores/5
-        [ResponseType(typeof(Store))]
-        public IHttpActionResult DeleteStore(int id)
+        // DELETE: api/Categories/5
+        [ResponseType(typeof(Category))]
+        public IHttpActionResult DeleteCategory(int id)
         {
-            Store store = db.Store.Find(id);
-            if (store == null)
+            Category category = db.Category.Find(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            db.Store.Remove(store);
+            db.Category.Remove(category);
             db.SaveChanges();
 
-            return Ok(store);
+            return Ok(category);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace Another_one_backend.Controllers
             base.Dispose(disposing);
         }
 
-        private bool StoreExists(int id)
+        private bool CategoryExists(int id)
         {
-            return db.Store.Count(e => e.Id == id) > 0;
+            return db.Category.Count(e => e.Id == id) > 0;
         }
     }
 }

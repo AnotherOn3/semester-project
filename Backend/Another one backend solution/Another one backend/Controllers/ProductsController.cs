@@ -27,11 +27,76 @@ namespace Another_one_backend.Controllers
         public IHttpActionResult GetProduct(int id)
         {
             Product product = db.Product.Find(id);
-            db.Entry(product).Reference(x => x.Store);
             if (product == null)
             {
                 return NotFound();
             }
+
+            return Ok(product);
+        }
+
+        // PUT: api/Products/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutProduct(int id, Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != product.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(product).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Products
+        [ResponseType(typeof(Product))]
+        public IHttpActionResult PostProduct(Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Product.Add(product);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = product.Id }, product);
+        }
+
+        // DELETE: api/Products/5
+        [ResponseType(typeof(Product))]
+        public IHttpActionResult DeleteProduct(int id)
+        {
+            Product product = db.Product.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            db.Product.Remove(product);
+            db.SaveChanges();
 
             return Ok(product);
         }
