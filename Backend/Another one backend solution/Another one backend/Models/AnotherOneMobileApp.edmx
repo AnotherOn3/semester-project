@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AnotherOneMobileAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AnotherOneMobileAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -31,6 +31,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Logo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Category_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
@@ -60,6 +70,7 @@
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Category_Product" Association="Self.FK_Category_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Category" EntitySet="Category" />
@@ -69,8 +80,7 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AnotherOneMobileAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -81,7 +91,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Category_Product" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="AnotherOneMobileAppModel.FK_Category_Product" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -93,8 +103,8 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StoreId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Category_Product" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="Store" Relationship="Self.FK_Product_Store" FromRole="Product" ToRole="Store" />
+          <NavigationProperty Name="Category" Relationship="AnotherOneMobileAppModel.FK_Category_Product" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Store" Relationship="AnotherOneMobileAppModel.FK_Product_Store" FromRole="Product" ToRole="Store" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -103,11 +113,35 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Logo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Store" FromRole="Store" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="AnotherOneMobileAppModel.FK_Product_Store" FromRole="Store" ToRole="Product" />
+        </EntityType>
+        <EntityContainer Name="AnotherOneMobileAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Store" EntityType="Self.Store" />
+          <EntitySet Name="sysdiagrams" EntityType="AnotherOneMobileAppModel.sysdiagrams" />
+          <AssociationSet Name="FK_Category_Product" Association="AnotherOneMobileAppModel.FK_Category_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Store" Association="AnotherOneMobileAppModel.FK_Product_Store">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Category_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <End Type="AnotherOneMobileAppModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="AnotherOneMobileAppModel.Category" Role="Category" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
@@ -118,8 +152,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Store">
-          <End Role="Store" Type="Self.Store" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Type="AnotherOneMobileAppModel.Store" Role="Store" Multiplicity="1" />
+          <End Type="AnotherOneMobileAppModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Store">
               <PropertyRef Name="Id" />
@@ -129,19 +163,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AnotherOneMobileAppEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Category" EntityType="Self.Category" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="Store" EntityType="Self.Store" />
-          <AssociationSet Name="FK_Category_Product" Association="Self.FK_Category_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Category" EntitySet="Category" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Store" Association="Self.FK_Product_Store">
-            <End Role="Store" EntitySet="Store" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -175,6 +196,17 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AnotherOneMobileAppModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -8,8 +8,9 @@
         <EntityTypeShape EntityType="AnotherOneMobileAppModel.Category" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="AnotherOneMobileAppModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="AnotherOneMobileAppModel.Store" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="AnotherOneMobileAppModel.FK_Category_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="AnotherOneMobileAppModel.FK_Product_Store" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AnotherOneMobileAppModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="AnotherOneMobileAppModel.FK_Category_Product" />
+        <AssociationConnector Association="AnotherOneMobileAppModel.FK_Product_Store" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

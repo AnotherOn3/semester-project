@@ -28,5 +28,6 @@ namespace Another_one_backend.Models
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Store> Store { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
