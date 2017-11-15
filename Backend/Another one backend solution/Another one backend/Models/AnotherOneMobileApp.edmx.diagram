@@ -5,11 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="91abac7104e845d1ba39b80eab192c60" Name="Diagram1">
-        <EntityTypeShape EntityType="AnotherOneMobileAppModel.Category" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnotherOneMobileAppModel.Category" Width="1.5" PointX="5.625" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AnotherOneMobileAppModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="AnotherOneMobileAppModel.Store" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="AnotherOneMobileAppModel.FK_Category_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="AnotherOneMobileAppModel.FK_Product_Store" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AnotherOneMobileAppModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="AnotherOneMobileAppModel.FK_Product_Store" />
+        <AssociationConnector Association="AnotherOneMobileAppModel.Product_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
