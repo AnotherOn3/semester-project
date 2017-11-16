@@ -11,13 +11,13 @@ const StoreCard = props => {
       </View>
       <View style={styles.cardMiddleContainer}>
         <Text>Popular discounts</Text>
-        <View>
+        <View style={styles.productInfoContainer}>
           <Image
             style={styles.imageStyle}
             source={{ uri: props.popularFirstImageUrl }}
           />
-          <View>
-            <View style={styles.row}>
+          <View style={styles.productInfo}>
+            <View style={styles.test}>
               <Text>{props.quantity}</Text>
               <Text>{props.quantityType} </Text>
               <Text>{props.productName}</Text>
@@ -38,12 +38,35 @@ const StoreCard = props => {
 const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
+    width: '94%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: 'red',
+    borderWidth: 1,
+    height: 140,
   },
-  cardLeftContainer: {},
-  cardMiddleContainer: {},
+  cardLeftContainer: {
+    alignItems: 'center',
+    borderColor: 'red',
+    borderWidth: 1,
+    width: '30%',
+  },
+  cardMiddleContainer: {
+    justifyContent: 'center',
+    borderColor: 'red',
+    borderWidth: 1,
+    width: '60%',
+  },
   cardRightContainer: {
     backgroundColor: 'pink',
     justifyContent: 'center',
+    width: '10%',
+  },
+  productInfoContainer: {
+    flexDirection: 'row',
+  },
+  productInfo: {
+    flexDirection: 'column',
   },
   imageStyle: {
     height: 30,
@@ -55,6 +78,10 @@ const styles = StyleSheet.create({
   price: {
     width: 100,
     alignItems: 'flex-end',
+  },
+  test: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 
