@@ -13,7 +13,7 @@ export default class App extends React.Component {
           quantityType="kg"
           productName="oranges"
           price="20"
-          shopImageUrl="https://placehold.it/30x30.png"
+          shopImageUrl="https://placehold.it/50x50.png"
           popularFirstImageUrl="https://placehold.it/50x50.png"
           chevronUrl="https://placehold.it/10x10.png"
         />
