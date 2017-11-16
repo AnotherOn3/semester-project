@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "another-one-frontend",
-    "description": "An empty new project",
-    "slug": "another-one-frontend",
+    "name": "Another One",
+    "description": "Mobile app which gives you grocery discounts",
+    "slug": "another-one",
     "privacy": "public",
     "sdkVersion": "22.0.0",
     "version": "1.0.0",
