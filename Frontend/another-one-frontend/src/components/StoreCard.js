@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
+import PopularProduct from './PopularProduct';
+
 const StoreCard = props => {
   return (
     <View style={styles.cardContainer}>
@@ -14,25 +16,21 @@ const StoreCard = props => {
       </View>
       <View style={styles.cardMiddleContainer}>
         <Text style={styles.popularDiscountsText}>Popular discounts</Text>
-        <View style={styles.productInfoContainer}>
-          <Image
-            style={styles.imageStyle}
-            source={{ uri: props.popularFirstImageUrl }}
-          />
-          <View style={styles.productInfo}>
-            <View style={styles.test}>
-              <Text>{props.quantity}</Text>
-              <Text>{props.quantityType} </Text>
-              <Text>{props.productName}</Text>
-            </View>
-            <View style={styles.price}>
-              <Text>{props.price} ,-DKK</Text>
-            </View>
-          </View>
-        </View>
+        <PopularProduct
+          imageUrl="https://placehold.it/30x30.png"
+          quantity="1"
+          quantityType="kg"
+          productName="oranges"
+        />
+        <PopularProduct
+          imageUrl="https://placehold.it/30x30.png"
+          quantity="2"
+          quantityType="l"
+          productName="water"
+        />
       </View>
       <View style={styles.cardRightContainer}>
-        <Image style={styles.imageStyle} source={{ uri: props.chevronUrl }} />
+        <Image style={styles.chevronStyle} source={{ uri: props.chevronUrl }} />
       </View>
     </View>
   );
@@ -65,27 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '10%',
   },
-  productInfoContainer: {
-    flexDirection: 'row',
-  },
-  productInfo: {
-    flexDirection: 'column',
-  },
-  imageStyle: {
-    height: 30,
-    width: 30,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  price: {
-    width: 100,
-    alignItems: 'flex-end',
-  },
-  test: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
+
   storeName: {
     fontSize: 16,
     marginBottom: 10,
@@ -98,6 +76,10 @@ const styles = StyleSheet.create({
   popularDiscountsText: {
     fontSize: 16,
     marginBottom: 10,
+  },
+  chevronStyle: {
+    width: 20,
+    height: 20,
   },
 });
 
