@@ -1,39 +1,35 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
-const StoreCard = () => {
+const StoreCard = props => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardLeftContainer}>
-        <Text>Fakta</Text>
-        <Image
-          style={styles.imageStyle}
-          source={{ uri: 'https://placehold.it/30x30.png' }}
-        />
-        <Text>23 Discounts</Text>
+        <Text>{props.storeName}</Text>
+        <Image style={styles.imageStyle} source={{ uri: props.shopImageUrl }} />
+        <Text>{props.discountNumber} Discounts</Text>
       </View>
       <View style={styles.cardMiddleContainer}>
         <Text>Popular discounts</Text>
         <View>
           <Image
             style={styles.imageStyle}
-            source={{ uri: 'https://placehold.it/30x30.png' }}
+            source={{ uri: props.popularFirstImageUrl }}
           />
-          <View style={styles.row}>
-            <Text>1</Text>
-            <Text>kg </Text>
-            <Text>oranges</Text>
-          </View>
-          <View style={styles.price}>
-            <Text>20 ,-DKK</Text>
+          <View>
+            <View style={styles.row}>
+              <Text>{props.quantity}</Text>
+              <Text>{props.quantityType} </Text>
+              <Text>{props.productName}</Text>
+            </View>
+            <View style={styles.price}>
+              <Text>{props.price} ,-DKK</Text>
+            </View>
           </View>
         </View>
       </View>
       <View style={styles.cardRightContainer}>
-        <Image
-          style={styles.imageStyle}
-          source={{ uri: 'https://placehold.it/30x30.png' }}
-        />
+        <Image style={styles.imageStyle} source={{ uri: props.chevronUrl }} />
       </View>
     </View>
   );
