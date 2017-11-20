@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import Styles from '../shared/styles';
 
 import PopularProduct from './PopularProduct';
 
@@ -12,21 +13,30 @@ const StoreCard = props => {
           style={styles.shopImageStyle}
           source={{ uri: props.shopImageUrl }}
         />
-        <Text>{props.discountNumber} Discounts</Text>
+        <Text
+          style={{
+            fontFamily: Styles.SemiBold,
+            textAlign: 'center',
+          }}
+        >
+          {props.discountNumber} Discounts
+        </Text>
       </View>
       <View style={styles.cardMiddleContainer}>
         <Text style={styles.popularDiscountsText}>Popular discounts</Text>
         <PopularProduct
-          imageUrl="https://placehold.it/30x30.png"
-          quantity="1"
+          imageUrl="https://placehold.it/40x40.png"
+          quantity="100"
           quantityType="kg"
-          productName="oranges"
+          price="20"
+          productName="Cuba oranf gsaogas igjsadoisa jioga"
         />
         <PopularProduct
-          imageUrl="https://placehold.it/30x30.png"
+          imageUrl="https://placehold.it/40x40.png"
           quantity="2"
           quantityType="l"
-          productName="water"
+          price="20"
+          productName="water fsafasfs  fasfasfas  fsaasfas  fas"
         />
       </View>
       <View style={styles.cardRightContainer}>
@@ -44,7 +54,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     borderWidth: 1,
     width: '94%',
-    height: 140,
+    height: 180,
     elevation: 5,
     shadowColor: 'black',
     shadowOpacity: 0.4,
@@ -86,6 +96,7 @@ const styles = StyleSheet.create({
   storeName: {
     fontSize: 16,
     marginBottom: 10,
+    fontFamily: Styles.SemiBold,
   },
   shopImageStyle: {
     marginBottom: 10,
@@ -95,6 +106,7 @@ const styles = StyleSheet.create({
   popularDiscountsText: {
     fontSize: 16,
     marginBottom: 10,
+    fontFamily: Styles.SemiBold,
   },
   chevronStyle: {
     width: 20,

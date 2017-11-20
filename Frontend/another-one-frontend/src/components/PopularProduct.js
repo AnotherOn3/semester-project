@@ -1,75 +1,52 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Font } from 'expo';
 
-class PopularProduct extends Component {
-  state = {
-    fontLoaded: false,
-  };
-  async componentDidMount() {
-    await Font.loadAsync([
-      { Light: require('../../assets/fonts/Light.otf') },
-      { Bold: require('../../assets/fonts/Bold.otf') },
-      { Italic: require('../../assets/fonts/Italic.otf') },
-      { Medium: require('../../assets/fonts/Medium.otf') },
-      { Regular: require('../../assets/fonts/Regular.otf') },
-      { SemiBold: require('../../assets/fonts/SemiBold.otf') },
-    ]);
-    this.setState({ fontLoaded: true });
-  }
-  render() {
-    if (this.state.fontLoaded) {
-      return (
-        <View>
-          <View style={styles.productInfoContainer}>
-            <Image
-              style={styles.imageStyle}
-              source={{ uri: this.props.imageUrl }}
-            />
-            <View style={styles.productInfo}>
-              <View style={styles.product}>
-                <Text>{this.props.quantity}</Text>
-                <Text>{this.props.quantityType} </Text>
-                <Text style={styles.text}>{this.props.productName}</Text>
-              </View>
-              <View style={styles.price}>
-                <Text>{this.props.price} ,-DKK</Text>
-              </View>
-            </View>
+const PopularProduct = props => {
+  return (
+    <View>
+      <View style={styles.productInfoContainer}>
+        <Image style={styles.imageStyle} source={{ uri: props.imageUrl }} />
+        <View style={styles.productInfo}>
+          <View style={styles.product}>
+            <Text numberOfLines={2}>
+              {props.quantity}
+              {props.quantityType} {props.productName}
+            </Text>
+          </View>
+          <View style={styles.price}>
+            <Text>{props.price} ,-DKK</Text>
           </View>
         </View>
-      );
-    } else {
-      return null;
-    }
-  }
-}
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   productInfoContainer: {
     flexDirection: 'row',
-    marginBottom: 12,
+    paddingBottom: 12,
   },
   productInfo: {
     flexDirection: 'column',
+    minWidth: '60%',
+    borderColor: 'red',
+    borderWidth: 1,
+    flex: 0.9,
   },
   imageStyle: {
-    height: 30,
-    width: 30,
+    height: 40,
+    width: 40,
   },
   row: {
     flexDirection: 'row',
   },
   price: {
-    width: 100,
     alignItems: 'flex-end',
   },
   product: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-  },
-  text: {
-    fontFamily: 'Regular',
   },
 });
 
