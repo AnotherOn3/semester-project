@@ -29,7 +29,7 @@ const StoreCard = props => {
           quantity="100"
           quantityType="kg"
           price="20"
-          productName="Cuba oranf gsaogas igjsadoisa jioga"
+          productName="Cuba oran bguvuggu b vyugy"
         />
         <PopularProduct
           imageUrl="https://placehold.it/40x40.png"
