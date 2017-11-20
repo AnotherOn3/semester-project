@@ -13,14 +13,24 @@ const StoreCard = props => {
           style={styles.shopImageStyle}
           source={{ uri: props.shopImageUrl }}
         />
-        <Text
-          style={{
-            fontFamily: Styles.SemiBold,
-            textAlign: 'center',
-          }}
-        >
-          {props.discountNumber} Discounts
-        </Text>
+        <View>
+          <Text
+            style={{
+              fontFamily: Styles.SemiBold,
+              textAlign: 'center',
+            }}
+          >
+            {props.discountNumber}
+          </Text>
+          <Text
+            style={{
+              fontFamily: Styles.SemiBold,
+              textAlign: 'center',
+            }}
+          >
+            Discounts
+          </Text>
+        </View>
       </View>
       <View style={styles.cardMiddleContainer}>
         <Text style={styles.popularDiscountsText}>Popular discounts</Text>
@@ -29,14 +39,14 @@ const StoreCard = props => {
           quantity="100"
           quantityType="kg"
           price="20"
-          productName="Cuba oran bguvuggu b vyugy"
+          productName="Cuba"
         />
         <PopularProduct
           imageUrl="https://placehold.it/40x40.png"
           quantity="2"
           quantityType="l"
           price="20"
-          productName="water fsafasfs  fasfasfas  fsaasfas  fas"
+          productName="water"
         />
       </View>
       <View style={styles.cardRightContainer}>
@@ -51,10 +61,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
     width: '94%',
-    height: 180,
+    height: 156,
     elevation: 5,
     shadowColor: 'black',
     shadowOpacity: 0.4,
@@ -69,16 +77,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 8,
     backgroundColor: '#f6f6f6',
     alignItems: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
     paddingTop: 12,
     width: '30%',
     height: '100%',
   },
   cardMiddleContainer: {
     backgroundColor: 'white',
-    borderColor: 'red',
-    borderWidth: 1,
     paddingTop: 12,
     paddingLeft: 12,
     width: '60%',
@@ -91,6 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '10%',
     height: '100%',
+    alignItems: 'center',
   },
 
   storeName: {

@@ -9,7 +9,7 @@ const PopularProduct = props => {
         <Image style={styles.imageStyle} source={{ uri: props.imageUrl }} />
         <View style={styles.productInfo}>
           <View style={styles.product}>
-            <Text numberOfLines={2} style={{ fontFamily: Styles.Light }}>
+            <Text numberOfLines={1} style={{ fontFamily: Styles.Light }}>
               {props.quantity}
               {props.quantityType} {props.productName}
             </Text>
@@ -28,14 +28,13 @@ const PopularProduct = props => {
 const styles = StyleSheet.create({
   productInfoContainer: {
     flexDirection: 'row',
-    paddingBottom: 12,
+    paddingBottom: 18,
   },
   productInfo: {
     flexDirection: 'column',
     minWidth: '60%',
-    borderColor: 'red',
-    borderWidth: 1,
-    flex: 0.9,
+    flex: 0.8,
+    marginLeft: 10,
   },
   imageStyle: {
     height: 40,
