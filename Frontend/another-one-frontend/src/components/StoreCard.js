@@ -39,29 +39,38 @@ const StoreCard = props => {
 const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
-    width: '94%',
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'red',
     borderWidth: 1,
+    width: '94%',
     height: 140,
   },
   cardLeftContainer: {
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    backgroundColor: '#f6f6f6',
     alignItems: 'center',
     borderColor: 'red',
     borderWidth: 1,
     width: '30%',
+    height: '100%',
   },
   cardMiddleContainer: {
+    backgroundColor: 'white',
     justifyContent: 'center',
     borderColor: 'red',
     borderWidth: 1,
     width: '60%',
+    height: '100%',
   },
   cardRightContainer: {
-    backgroundColor: 'pink',
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    backgroundColor: 'white',
     justifyContent: 'center',
     width: '10%',
+    height: '100%',
   },
 
   storeName: {
