@@ -1,11 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import StoreCard from './src/components/StoreCard';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <StoreCard
+          storeName="Fakta"
+          discountNumber="23"
+          shopImageUrl="https://placehold.it/50x50.png"
+          chevronUrl="https://placehold.it/10x10.png"
+        />
       </View>
     );
   }
@@ -14,7 +20,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
   },
