@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import StoreCard from './src/components/StoreCard';
 import ProductCard from './src/components/ProductCard';
 import StoreProductCard from './src/components/StoreProductCard';
+import SearchOptionButton from './src/components/SearchOptionButton';
 import { Font } from 'expo';
 
 export default class App extends React.Component {
@@ -44,6 +45,7 @@ export default class App extends React.Component {
             productQuantityType="kg"
             productPrice="20"
           />
+          <SearchOptionButton categoryName="Veggies fsafasf " />
         </View>
       );
     } else {
