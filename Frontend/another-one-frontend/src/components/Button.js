@@ -21,7 +21,7 @@ const ShopCardButton = props => {
 
 const styles = StyleSheet.create({
   ButtonContainer: {
-    backgroundColor: 'blue',
+    backgroundColor: '#29094A',
     width: 35,
     height: 35,
     justifyContent: 'center',
