@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   product: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    paddingBottom: 5,
   },
 });
 

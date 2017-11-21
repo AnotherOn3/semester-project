@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import StoreCard from './src/components/StoreCard';
+import ProductCard from './src/components/ProductCard';
 import { Font } from 'expo';
 
 export default class App extends React.Component {
@@ -26,7 +27,14 @@ export default class App extends React.Component {
             storeName="Fakta"
             discountNumber="100"
             shopImageUrl="https://placehold.it/50x50.png"
-            chevronUrl="https://placehold.it/10x10.png"
+          />
+          <ProductCard
+            shopImageUrl="https://placehold.it/40x40.png"
+            productImageUrl="https://placehold.it/40x40.png"
+            productName="Cuban Orange"
+            productQuantity="1"
+            productQuantityType="kg"
+            productPrice="20"
           />
         </View>
       );
