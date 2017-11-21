@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import Styles from '../shared/styles';
 
 const PopularProduct = props => {
   return (
@@ -8,12 +9,15 @@ const PopularProduct = props => {
         <Image style={styles.imageStyle} source={{ uri: props.imageUrl }} />
         <View style={styles.productInfo}>
           <View style={styles.product}>
-            <Text>{props.quantity}</Text>
-            <Text>{props.quantityType} </Text>
-            <Text>{props.productName}</Text>
+            <Text numberOfLines={1} style={{ fontFamily: Styles.Light }}>
+              {props.quantity}
+              {props.quantityType} {props.productName}
+            </Text>
           </View>
           <View style={styles.price}>
-            <Text>{props.price} ,-DKK</Text>
+            <Text style={{ fontFamily: Styles.Regular }}>
+              {props.price} ,-DKK
+            </Text>
           </View>
         </View>
       </View>
@@ -24,19 +28,22 @@ const PopularProduct = props => {
 const styles = StyleSheet.create({
   productInfoContainer: {
     flexDirection: 'row',
+    paddingBottom: 18,
   },
   productInfo: {
     flexDirection: 'column',
+    minWidth: '60%',
+    flex: 0.8,
+    marginLeft: 10,
   },
   imageStyle: {
-    height: 30,
-    width: 30,
+    height: 40,
+    width: 40,
   },
   row: {
     flexDirection: 'row',
   },
   price: {
-    width: 100,
     alignItems: 'flex-end',
   },
   product: {

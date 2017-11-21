@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import Styles from '../shared/styles';
 
 import PopularProduct from './PopularProduct';
 
@@ -12,20 +13,39 @@ const StoreCard = props => {
           style={styles.shopImageStyle}
           source={{ uri: props.shopImageUrl }}
         />
-        <Text>{props.discountNumber} Discounts</Text>
+        <View>
+          <Text
+            style={{
+              fontFamily: Styles.SemiBold,
+              textAlign: 'center',
+            }}
+          >
+            {props.discountNumber}
+          </Text>
+          <Text
+            style={{
+              fontFamily: Styles.SemiBold,
+              textAlign: 'center',
+            }}
+          >
+            Discounts
+          </Text>
+        </View>
       </View>
       <View style={styles.cardMiddleContainer}>
         <Text style={styles.popularDiscountsText}>Popular discounts</Text>
         <PopularProduct
-          imageUrl="https://placehold.it/30x30.png"
-          quantity="1"
+          imageUrl="https://placehold.it/40x40.png"
+          quantity="100"
           quantityType="kg"
-          productName="oranges"
+          price="20"
+          productName="Cuba"
         />
         <PopularProduct
-          imageUrl="https://placehold.it/30x30.png"
+          imageUrl="https://placehold.it/40x40.png"
           quantity="2"
           quantityType="l"
+          price="20"
           productName="water"
         />
       </View>
@@ -39,34 +59,49 @@ const StoreCard = props => {
 const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
-    width: '94%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
-    height: 140,
+    width: '94%',
+    height: 156,
+    elevation: 5,
+    shadowColor: 'black',
+    shadowOpacity: 0.4,
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowRadius: 6,
   },
   cardLeftContainer: {
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    backgroundColor: '#f6f6f6',
     alignItems: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
+    paddingTop: 12,
     width: '30%',
+    height: '100%',
   },
   cardMiddleContainer: {
-    justifyContent: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
+    backgroundColor: 'white',
+    paddingTop: 12,
+    paddingLeft: 12,
     width: '60%',
+    height: '100%',
   },
   cardRightContainer: {
-    backgroundColor: 'pink',
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    backgroundColor: 'white',
     justifyContent: 'center',
     width: '10%',
+    height: '100%',
+    alignItems: 'center',
   },
 
   storeName: {
     fontSize: 16,
     marginBottom: 10,
+    fontFamily: Styles.SemiBold,
   },
   shopImageStyle: {
     marginBottom: 10,
@@ -76,6 +111,7 @@ const styles = StyleSheet.create({
   popularDiscountsText: {
     fontSize: 16,
     marginBottom: 10,
+    fontFamily: Styles.SemiBold,
   },
   chevronStyle: {
     width: 20,
