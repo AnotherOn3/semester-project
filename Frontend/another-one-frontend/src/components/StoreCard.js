@@ -50,7 +50,10 @@ const StoreCard = props => {
         />
       </View>
       <View style={styles.cardRightContainer}>
-        <Image style={styles.chevronStyle} source={{ uri: props.chevronUrl }} />
+        <Image
+          style={styles.chevronStyle}
+          source={{ uri: 'https://placehold.it/20x20.png' }}
+        />
       </View>
     </View>
   );
@@ -58,6 +61,7 @@ const StoreCard = props => {
 
 const styles = StyleSheet.create({
   cardContainer: {
+    borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
