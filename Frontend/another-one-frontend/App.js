@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import StoreCard from './src/components/StoreCard';
-import ProductCard from './src/components/ProductCard';
-import StoreProductCard from './src/components/StoreProductCard';
-import SearchOptionButton from './src/components/SearchOptionButton';
+import StoreCard from './src/components/StoreCard/StoreCard';
+import ProductCard from './src/components/ProductCard/ProductCard';
+import StoreProductCard from './src/components/StoreProductCard/StoreProductCard';
+import SearchOptionButton from './src/components/SearchOptionButton/SearchOptionButton';
+import StoreScreen from './src/screens/StoresScreen/StoresScreen';
 import { Font } from 'expo';
 
 export default class App extends React.Component {
@@ -46,6 +47,7 @@ export default class App extends React.Component {
             productPrice="20"
           />
           <SearchOptionButton categoryName="Veggies fsafasf " />
+          <StoreScreen />
         </View>
       );
     } else {

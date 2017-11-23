@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import Styles from '../shared/styles';
+import Styles from '../../shared/styles';
 
-import PopularProduct from './PopularProduct';
+import PopularProduct from '../PopularProduct/PopularProduct';
 
 const StoreCard = props => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import Styles from '../shared/styles';
+import Styles from '../../shared/styles';
 
 const PopularProduct = props => {
   return (

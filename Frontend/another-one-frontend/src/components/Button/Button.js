@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import Styles from '../shared/styles';
+import Styles from '../../shared/styles';
 
 const handleClick = () => {
   console.log('clicked!!!! WOOHOO SKRAAASKSKSKAKA POW POW!');
