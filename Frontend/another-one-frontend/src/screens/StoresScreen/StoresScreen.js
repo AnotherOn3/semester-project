@@ -13,20 +13,9 @@ class StoresScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
+export default connect(
+  state => ({
     stores: state.stores,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onScreenLoad: () => {
-      dispatch(fetchStores);
-    },
-  };
-};
-
-const StoreScreen = connect(mapStateToProps, mapDispatchToProps)(StoreScreen);
-
-export default StoreScreen;
+  }),
+  { fetchStores },
+)(StoresScreen);

@@ -1,4 +1,5 @@
 import Api from '../../Utils/api';
+import { error } from 'util';
 
 export const FETCH_STORES_PENDING = 'FETCH_STORES_PENDING';
 export const FETCH_STORES_SUCCESS = 'FETCH_STORES_SUCCESS';
@@ -30,7 +31,7 @@ export function fetchStores() {
         dispatch(fetchStoresSuccess(stores));
       })
       .catch(error, dispatch => {
-        dispatch(fetchStoresFail(error));
+        dispatch(fetchStoresFail(new Error(error)));
       });
   };
 }
