@@ -6,7 +6,7 @@ import {
 
 const initState = {
   stores: [],
-  error: 'no error',
+  error: '',
   loading: true,
 };
 export default (state = initState, action) => {
