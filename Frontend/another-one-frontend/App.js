@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import StoreCard from './src/components/StoreCard/StoreCard';
 import ProductCard from './src/components/ProductCard/ProductCard';
 import StoreProductCard from './src/components/StoreProductCard/StoreProductCard';
@@ -28,8 +28,8 @@ export default class App extends React.Component {
     if (this.state.fontLoaded) {
       return (
         <Provider store={store}>
-          <ScrollView contentContainerStyle={styles.container}>
-            <StoreCard
+          <View style={styles.container}>
+            {/* <StoreCard
               storeName="Fakta"
               discountNumber="100"
               shopImageUrl="https://placehold.it/50x50.png"
@@ -49,9 +49,9 @@ export default class App extends React.Component {
               productQuantityType="kg"
               productPrice="20"
             />
-            <SearchOptionButton categoryName="Veggies fsafasf " />
+            <SearchOptionButton categoryName="Veggies fsafasf " /> */}
             <StoreScreen />
-          </ScrollView>
+          </View>
         </Provider>
       );
     } else {
