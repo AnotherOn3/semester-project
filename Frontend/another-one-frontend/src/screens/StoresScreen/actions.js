@@ -31,7 +31,7 @@ export function fetchStores() {
         dispatch(fetchStoresSuccess(stores));
       })
       .catch(error, dispatch => {
-        dispatch(fetchStoresFail(new Error(error)));
+        dispatch(fetchStoresFail('error getting stores', new Error(error)));
       });
   };
 }
