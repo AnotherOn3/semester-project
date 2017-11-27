@@ -1,18 +1,19 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import ShopCardButton from './Button';
-import Styles from '../shared/styles';
+import ShopCardButton from '../Button/Button';
+import Styles from '../../shared/styles';
 
-const StoreProductCard = props => {
+const ProductCard = props => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardLeftContainer}>
+        <Image style={styles.ImageStyle} source={{ uri: props.shopImageUrl }} />
+      </View>
+      <View style={styles.cardMiddleContainer}>
         <Image
           style={styles.ImageStyle}
           source={{ uri: props.productImageUrl }}
         />
-      </View>
-      <View style={styles.cardMiddleContainer}>
         <View style={styles.ProductInfoStyle}>
           <View style={styles.TextPadding}>
             <Text
@@ -104,7 +105,8 @@ const styles = StyleSheet.create({
     width: 40,
   },
   ProductInfoStyle: {
-    width: '92%',
+    marginLeft: 10,
+    width: '68%',
   },
   ProductInfoContainer: {
     flexDirection: 'row',
@@ -115,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StoreProductCard;
+export default ProductCard;

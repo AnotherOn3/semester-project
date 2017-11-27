@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableWithoutFeedback, View, Text, StyleSheet } from 'react-native';
-import Styles from '../shared/styles';
+import Styles from '../../shared/styles';
 
 class SearchOptionButton extends React.Component {
   state = {
@@ -8,7 +8,6 @@ class SearchOptionButton extends React.Component {
   };
   handleClick = () => {
     this.setState({ active: !this.state.active });
-    console.log(this.state.active);
   };
   render() {
     return (
