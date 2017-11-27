@@ -2,7 +2,8 @@ import { get } from './common';
 
 class Api {
   async getStores() {
-    return await get('stores');
+    const { data } = await get('stores');
+    return data;
   }
 }
 
