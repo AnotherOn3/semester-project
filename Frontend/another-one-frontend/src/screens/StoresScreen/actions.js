@@ -10,6 +10,7 @@ function fetchStoresRequest() {
     type: FETCH_STORES_PENDING,
   };
 }
+
 function fetchStoresSuccess(stores) {
   return {
     type: FETCH_STORES_SUCCESS,
@@ -31,7 +32,7 @@ export function fetchStores() {
         dispatch(fetchStoresSuccess(stores));
       })
       .catch(error, dispatch => {
-        dispatch(fetchStoresFail('error getting stores', new Error(error)));
+        dispatch(fetchStoresFail(new Error(error)));
       });
   };
 }

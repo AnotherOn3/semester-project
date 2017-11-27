@@ -15,15 +15,15 @@ export default (state = initState, action) => {
       return initState;
     case FETCH_STORES_SUCCESS:
       return {
+        ...state,
         stores: action.stores,
         loading: false,
-        ...state,
       };
     case FETCH_STORES_FAIL:
       return {
+        ...state,
         loading: false,
         error: 'Fetching stores failed',
-        ...state,
       };
     default:
       return state;

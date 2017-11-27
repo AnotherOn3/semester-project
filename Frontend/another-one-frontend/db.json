@@ -2,7 +2,27 @@
   "stores": [
     {
       "id": 1,
-      "name": "Netto"
+      "name": "Netto",
+      "image": "https://placehold.it/30x30.png",
+      "discountNumber": 23
+    },
+    {
+      "id": 2,
+      "name": "Fakta",
+      "image": "https://placehold.it/30x30.png",
+      "discountNumber": 465
+    },
+    {
+      "id": 3,
+      "name": "Lidl",
+      "image": "https://placehold.it/30x30.png",
+      "discountNumber": 1000
+    },
+    {
+      "id": 4,
+      "name": "Rema1000",
+      "image": "https://placehold.it/30x30.png",
+      "discountNumber": 3
     }
   ]
 }

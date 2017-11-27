@@ -8,7 +8,6 @@ class SearchOptionButton extends React.Component {
   };
   handleClick = () => {
     this.setState({ active: !this.state.active });
-    console.log(this.state.active);
   };
   render() {
     return (
