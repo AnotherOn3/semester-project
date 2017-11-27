@@ -6,7 +6,6 @@ import { fetchStores } from './actions';
 
 class StoresScreen extends React.Component {
   componentDidMount() {
-    console.log(this.props);
     this.props.fetchStores();
   }
   render() {

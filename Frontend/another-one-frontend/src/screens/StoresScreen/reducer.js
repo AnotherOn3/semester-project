@@ -10,7 +10,6 @@ const initState = {
   loading: true,
 };
 export default (state = initState, action) => {
-  console.log(action);
   switch (action.type) {
     case FETCH_STORES_PENDING:
       return initState;
