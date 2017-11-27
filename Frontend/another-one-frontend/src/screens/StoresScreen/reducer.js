@@ -22,7 +22,7 @@ export default (state = initState, action) => {
     case FETCH_STORES_FAIL:
       return {
         loading: false,
-        error: 'fetchig stores failed',
+        error: 'Fetching stores failed',
         ...state,
       };
     default:
