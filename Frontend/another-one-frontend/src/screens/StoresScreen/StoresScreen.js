@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import StoreCard from '../../components/StoreCard/StoreCard';
 import { fetchStores } from './actions';
@@ -25,7 +25,7 @@ class StoresScreen extends React.Component {
 
   render() {
     if (this.props.stores) {
-      return <ScrollView>{this.renderStoreCard()}</ScrollView>;
+      return <View>{this.renderStoreCard()}</View>;
     } else {
       return <View>Loading...</View>;
     }
