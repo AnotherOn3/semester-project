@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import StoreCard from '../../components/StoreCard/StoreCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct';
@@ -43,6 +43,7 @@ class StoresScreen extends React.Component {
         <ScrollView
           showsVerticalScrollIndicator={false}
           automaticallyAdjustContentInsets={false}
+          contentContainerStyle={styles.container}
         >
           {this.renderStoreCard()}
         </ScrollView>
@@ -59,3 +60,11 @@ export default connect(
   }),
   { fetchStores },
 )(StoresScreen);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'orange',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

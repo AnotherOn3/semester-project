@@ -29,10 +29,7 @@ export default class App extends React.Component {
     if (this.state.fontLoaded) {
       return (
         <Provider store={store}>
-          <View style={styles.container}>
-            <Navigator />
-            <Text>Hey</Text>
-          </View>
+          <Navigator />
         </Provider>
       );
     } else {
@@ -40,12 +37,3 @@ export default class App extends React.Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'orange',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
