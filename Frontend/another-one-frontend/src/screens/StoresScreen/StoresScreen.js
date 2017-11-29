@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import StoreCard from '../../components/StoreCard/StoreCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct';
+import Header from '../../components/Header/Header';
 import { fetchStores } from './actions';
 
 class StoresScreen extends React.Component {
@@ -40,13 +41,19 @@ class StoresScreen extends React.Component {
   render() {
     if (this.props.stores) {
       return (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          automaticallyAdjustContentInsets={false}
-          contentContainerStyle={styles.container}
-        >
-          {this.renderStoreCard()}
-        </ScrollView>
+        <View>
+          <Header
+            imageUri={require('../../../assets/images/store-active.png')}
+            title="Stores"
+          />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            automaticallyAdjustContentInsets={false}
+            contentContainerStyle={styles.container}
+          >
+            {this.renderStoreCard()}
+          </ScrollView>
+        </View>
       );
     } else {
       return <View>Loading...</View>;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import StoresScreen from '../screens/StoresScreen/StoresScreen';
 import Styles from '../shared/styles';
@@ -9,6 +9,12 @@ const Navigator = TabNavigator(
     Stores: {
       screen: StoresScreen,
       navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Image
+            source={require('../../assets/images/store-inactive.png')}
+            style={{ height: 20, width: 40, tintColor: tintColor }}
+          />
+        ),
         tabBarLabel: 'Home',
       },
     },
@@ -16,12 +22,24 @@ const Navigator = TabNavigator(
     Products: {
       screen: StoresScreen,
       navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Image
+            source={require('../../assets/images/products-inactive.png')}
+            style={{ height: 20, width: 40, tintColor: tintColor }}
+          />
+        ),
         tabBarLabel: 'Products',
       },
     },
     ShoppingList: {
       screen: StoresScreen,
       navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Image
+            source={require('../../assets/images/shopping-list-inactive.png')}
+            style={{ height: 20, width: 40, tintColor: tintColor }}
+          />
+        ),
         tabBarLabel: 'Shopping List',
       },
     },
