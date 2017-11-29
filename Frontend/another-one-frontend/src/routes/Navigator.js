@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import StoresScreen from '../screens/StoresScreen/StoresScreen';
+import ProductsScreen from '../screens/ProductsScreen/ProductsScreen';
 import Styles from '../shared/styles';
 
 const Navigator = TabNavigator(
@@ -20,7 +21,7 @@ const Navigator = TabNavigator(
     },
 
     Products: {
-      screen: StoresScreen,
+      screen: ProductsScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
