@@ -7,6 +7,7 @@ import SearchOptionButton from './src/components/SearchOptionButton/SearchOption
 import { Provider } from 'react-redux';
 import store from './src/redux_config/store';
 import StoreScreen from './src/screens/StoresScreen/StoresScreen';
+import Navigator from './src/routes/Navigator';
 import { Font } from 'expo';
 
 export default class App extends React.Component {
@@ -29,28 +30,8 @@ export default class App extends React.Component {
       return (
         <Provider store={store}>
           <View style={styles.container}>
-            {/* <StoreCard
-              storeName="Fakta"
-              discountNumber="100"
-              shopImageUrl="https://placehold.it/50x50.png"
-            />
-            <ProductCard
-              shopImageUrl="https://placehold.it/40x40.png"
-              productImageUrl="https://placehold.it/40x40.png"
-              productName="Cuban Orange"
-              productQuantity="1"
-              productQuantityType="kg"
-              productPrice="20"
-            />
-            <StoreProductCard
-              productImageUrl="https://placehold.it/40x40.png"
-              productName="Cuban Orange"
-              productQuantity="1"
-              productQuantityType="kg"
-              productPrice="20"
-            />
-            <SearchOptionButton categoryName="Veggies fsafasf " /> */}
-            <StoreScreen />
+            <Navigator />
+            <Text>Hey</Text>
           </View>
         </Provider>
       );
