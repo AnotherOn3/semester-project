@@ -53,7 +53,14 @@ const Navigator = TabNavigator(
     swipeEnabled: true,
     tabBarOptions: {
       style: {
-        backgroundColor: 'orange',
+        backgroundColor: 'rgba(22, 22, 22, 0)',
+        height: 60,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        flex: 1,
+        zIndex: 9999999,
       },
       activeTintColor: '#190559',
       inactiveTintColor: 'black',

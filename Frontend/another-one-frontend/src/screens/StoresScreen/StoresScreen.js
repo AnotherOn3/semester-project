@@ -5,6 +5,7 @@ import StoreCard from '../../components/StoreCard/StoreCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct';
 import Header from '../../components/Header/Header';
 import { fetchStores } from './actions';
+import { LinearGradient } from 'expo';
 
 class StoresScreen extends React.Component {
   componentDidMount() {
@@ -51,6 +52,20 @@ class StoresScreen extends React.Component {
             imageUri={require('../../../assets/images/store-active.png')}
             title="Stores"
           />
+          <LinearGradient
+            colors={['#FBBB3B', '#F19143']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+
+              alignItems: 'center',
+              borderRadius: 5,
+              flex: 1,
+              width: '100%',
+            }}
+          />
           <ScrollView
             showsVerticalScrollIndicator={false}
             automaticallyAdjustContentInsets={false}
@@ -75,7 +90,6 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
   },
