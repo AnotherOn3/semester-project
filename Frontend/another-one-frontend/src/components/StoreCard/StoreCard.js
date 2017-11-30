@@ -34,20 +34,7 @@ const StoreCard = props => {
       </View>
       <View style={styles.cardMiddleContainer}>
         <Text style={styles.popularDiscountsText}>Popular discounts</Text>
-        <PopularProduct
-          imageUrl="https://placehold.it/40x40.png"
-          quantity="100"
-          quantityType="kg"
-          price="20"
-          productName="Cuba"
-        />
-        <PopularProduct
-          imageUrl="https://placehold.it/40x40.png"
-          quantity="2"
-          quantityType="l"
-          price="20"
-          productName="water"
-        />
+        <View>{props.popularProduct}</View>
       </View>
       <View style={styles.cardRightContainer}>
         <Image
@@ -65,13 +52,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '94%',
+    width: '96%',
+    marginBottom: '7%',
+    marginLeft: '2%',
     height: 156,
     elevation: 5,
     shadowColor: 'black',
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.3,
     shadowOffset: {
-      width: 3,
+      width: 1,
       height: 3,
     },
     shadowRadius: 6,

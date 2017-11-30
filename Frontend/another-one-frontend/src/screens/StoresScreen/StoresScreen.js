@@ -1,7 +1,9 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import StoreCard from '../../components/StoreCard/StoreCard';
+import PopularProduct from '../../components/PopularProduct/PopularProduct';
+import Header from '../../components/Header/Header';
 import { fetchStores } from './actions';
 
 class StoresScreen extends React.Component {
@@ -9,8 +11,20 @@ class StoresScreen extends React.Component {
     this.props.fetchStores();
   }
 
+  renderPopularProduct = store => {
+    return store.popularProducts.map(product => (
+      <PopularProduct
+        key={product.id}
+        imageUrl={product.image}
+        quantity={product.quantity}
+        quantityType={product.quantityType}
+        price={product.price}
+        productName={product.name}
+      />
+    ));
+  };
+
   renderStoreCard = () => {
-    console.log('renderStoreCard', this.props.stores.stores);
     if (this.props.stores) {
       return this.props.stores.stores.map(store => (
         <StoreCard
@@ -18,6 +32,7 @@ class StoresScreen extends React.Component {
           storeName={store.name}
           shopImageUrl={store.image}
           discountNumber={store.discountNumber}
+          popularProduct={this.renderPopularProduct(store)}
         />
       ));
     }
@@ -25,7 +40,21 @@ class StoresScreen extends React.Component {
 
   render() {
     if (this.props.stores) {
-      return <ScrollView>{this.renderStoreCard()}</ScrollView>;
+      return (
+        <View>
+          <Header
+            imageUri={require('../../../assets/images/store-active.png')}
+            title="Stores"
+          />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            automaticallyAdjustContentInsets={false}
+            contentContainerStyle={styles.container}
+          >
+            {this.renderStoreCard()}
+          </ScrollView>
+        </View>
+      );
     } else {
       return <View>Loading...</View>;
     }
@@ -38,3 +67,11 @@ export default connect(
   }),
   { fetchStores },
 )(StoresScreen);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'orange',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
