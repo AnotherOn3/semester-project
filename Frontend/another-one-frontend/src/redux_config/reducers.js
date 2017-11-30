@@ -5,4 +5,5 @@ import productsReducer from '../screens/ProductsScreen/reducer';
 export default combineReducers({
   stores: storesReducer,
   products: productsReducer,
+  storeProducts: storeProductsReducer,
 });

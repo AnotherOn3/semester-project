@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import PopularProduct from '../../components/PopularProduct/PopularProduct';
+import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
 import { fetchProducts } from './actions';
 
