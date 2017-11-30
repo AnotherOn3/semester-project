@@ -12,7 +12,7 @@ class Api {
   }
 
   async getStoreProducts() {
-    const { data } = await get('products');
+    const { data } = await get('stores/:id');
     return data;
   }
 }

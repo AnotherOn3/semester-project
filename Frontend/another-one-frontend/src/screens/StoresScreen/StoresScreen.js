@@ -24,6 +24,10 @@ class StoresScreen extends React.Component {
     ));
   };
 
+  goToSingleStore = id => {
+    this.props.navigation.navigate('Store', { id: id });
+  };
+
   renderStoreCard = () => {
     if (this.props.stores) {
       return this.props.stores.stores.map(store => (
@@ -33,6 +37,7 @@ class StoresScreen extends React.Component {
           shopImageUrl={store.image}
           discountNumber={store.discountNumber}
           popularProduct={this.renderPopularProduct(store)}
+          handleNavigation={() => this.goToSingleStore(store.id)}
         />
       ));
     }

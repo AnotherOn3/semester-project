@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { TabNavigator, TabBarBottom } from 'react-navigation';
+import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
 import StoresScreen from '../screens/StoresScreen/StoresScreen';
 import ProductsScreen from '../screens/ProductsScreen/ProductsScreen';
 import Styles from '../shared/styles';
+import StoreProductsScreen from '../screens/StoreProductsScreen/StoreProductsScreen';
 
 const Navigator = TabNavigator(
   {
@@ -63,4 +64,13 @@ const Navigator = TabNavigator(
   },
 );
 
-export default Navigator;
+const StoreProductsNavigator = StackNavigator({
+  Home: {
+    screen: Navigator,
+  },
+  Store: {
+    screen: StoreProductsScreen,
+  },
+});
+
+export default StoreProductsNavigator;

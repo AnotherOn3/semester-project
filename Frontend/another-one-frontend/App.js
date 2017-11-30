@@ -7,7 +7,7 @@ import SearchOptionButton from './src/components/SearchOptionButton/SearchOption
 import { Provider } from 'react-redux';
 import store from './src/redux_config/store';
 import StoreScreen from './src/screens/StoresScreen/StoresScreen';
-import Navigator from './src/routes/Navigator';
+import StoreProductsNavigator from './src/routes/Navigator';
 import { Font } from 'expo';
 
 export default class App extends React.Component {
@@ -29,7 +29,7 @@ export default class App extends React.Component {
     if (this.state.fontLoaded) {
       return (
         <Provider store={store}>
-          <Navigator />
+          <StoreProductsNavigator />
         </Provider>
       );
     } else {
