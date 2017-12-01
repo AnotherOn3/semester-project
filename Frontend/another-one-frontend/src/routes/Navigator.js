@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Platform } from 'react-native';
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
 import StoresScreen from '../screens/StoresScreen/StoresScreen';
 import ProductsScreen from '../screens/ProductsScreen/ProductsScreen';
 import Styles from '../shared/styles';
 import StoreProductsScreen from '../screens/StoreProductsScreen/StoreProductsScreen';
+import Header from '../components/Header/Header';
 
 const Navigator = TabNavigator(
   {
@@ -53,14 +54,13 @@ const Navigator = TabNavigator(
     swipeEnabled: true,
     tabBarOptions: {
       style: {
-        backgroundColor: 'rgba(22, 22, 22, 0)',
+        backgroundColor: Platform.OS === 'ios' ? 'transparent' : 'orange',
         height: 60,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        flex: 1,
-        zIndex: 9999999,
+        flex: Platform.OS === 'ios' ? 1 : 0,
+        position: Platform.OS === 'android' ? 'absolute' : 'relative',
+        left: Platform.OS === 'android' ? 0 : null,
+        bottom: Platform.OS === 'android' ? 0 : null,
+        right: Platform.OS === 'android' ? 0 : null,
       },
       activeTintColor: '#190559',
       inactiveTintColor: 'black',
@@ -71,13 +71,16 @@ const Navigator = TabNavigator(
   },
 );
 
-const StoreProductsNavigator = StackNavigator({
-  Home: {
-    screen: Navigator,
+const StoreProductsNavigator = StackNavigator(
+  {
+    Home: {
+      screen: Navigator,
+    },
+    Store: {
+      screen: StoreProductsScreen,
+    },
   },
-  Store: {
-    screen: StoreProductsScreen,
-  },
-});
+  {},
+);
 
 export default StoreProductsNavigator;

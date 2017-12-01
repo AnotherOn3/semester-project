@@ -12,9 +12,7 @@ const Header = props => (
         top: 0,
         left: 0,
         bottom: 0,
-
         alignItems: 'center',
-        borderRadius: 5,
         flex: 1,
         width: '100%',
       }}

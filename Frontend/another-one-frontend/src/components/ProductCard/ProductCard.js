@@ -72,6 +72,8 @@ const styles = StyleSheet.create({
       height: 3,
     },
     shadowRadius: 6,
+    marginTop: 10,
+    marginBottom: 10,
   },
 
   cardLeftContainer: {

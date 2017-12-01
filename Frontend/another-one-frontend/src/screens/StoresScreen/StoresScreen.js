@@ -8,6 +8,14 @@ import { fetchStores } from './actions';
 import { LinearGradient } from 'expo';
 
 class StoresScreen extends React.Component {
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    header: (
+      <Header
+        title="Stores"
+        imageUri={require('../../../assets/images/store-inactive.png')}
+      />
+    ),
+  });
   componentDidMount() {
     this.props.fetchStores();
   }
@@ -48,20 +56,14 @@ class StoresScreen extends React.Component {
     if (this.props.stores) {
       return (
         <View>
-          <Header
-            imageUri={require('../../../assets/images/store-active.png')}
-            title="Stores"
-          />
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
-              bottom: 0,
-
+              bottom: 100,
               alignItems: 'center',
-              borderRadius: 5,
               flex: 1,
               width: '100%',
             }}
@@ -73,6 +75,16 @@ class StoresScreen extends React.Component {
           >
             {this.renderStoreCard()}
           </ScrollView>
+          <View
+            style={{
+              height: '30%',
+              width: '94%',
+              borderTopColor: 'black',
+              borderTopWidth: 2,
+              alignSelf: 'center',
+              marginTop: 7,
+            }}
+          />
         </View>
       );
     } else {
@@ -92,5 +104,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 60,
   },
 });
