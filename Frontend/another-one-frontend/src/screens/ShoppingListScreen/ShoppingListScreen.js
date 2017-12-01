@@ -1,59 +1,44 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import StoreCard from '../../components/StoreCard/StoreCard';
-import PopularProduct from '../../components/PopularProduct/PopularProduct';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
-import { fetchStores } from './actions';
+import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
 
-class StoresScreen extends React.Component {
+class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
       <Header
-        title="Stores"
+        title="Shopping List"
         imageUri={require('../../../assets/images/store-inactive.png')}
       />
     ),
   });
+
   componentDidMount() {
-    this.props.fetchStores();
+    this.props.fetchProducts();
   }
 
-  renderPopularProduct = store => {
-    return store.popularProducts.map(product => (
-      <PopularProduct
-        key={product.id}
-        imageUrl={product.image}
-        quantity={product.quantity}
-        quantityType={product.quantityType}
-        price={product.price}
-        productName={product.name}
-      />
-    ));
-  };
-
-  goToSingleStore = (id, name) => {
-    this.props.navigation.navigate('Store', { id: id, name: name });
-  };
-
-  renderStoreCard = () => {
-    if (this.props.stores) {
-      return this.props.stores.stores.map(store => (
-        <StoreCard
-          key={store.id}
-          storeName={store.name}
-          shopImageUrl={store.image}
-          discountNumber={store.discountNumber}
-          popularProduct={this.renderPopularProduct(store)}
-          handleNavigation={() => this.goToSingleStore(store.id, store.name)}
+  renderProductCard = () => {
+    if (this.props.products) {
+      return this.props.products.products.map(product => (
+        <ProductCard
+          key={product.id}
+          productName={product.name}
+          shopImageUrl={product.shopImage}
+          productImageUrl={product.image}
+          productQuantity={product.quantity}
+          productQuantityType={product.quantityType}
+          productPrice={product.price}
         />
       ));
     }
   };
 
   render() {
-    if (this.props.stores) {
+    if (this.props.products) {
       return (
         <View>
           <LinearGradient
@@ -73,7 +58,7 @@ class StoresScreen extends React.Component {
             automaticallyAdjustContentInsets={false}
             contentContainerStyle={styles.container}
           >
-            {this.renderStoreCard()}
+            {this.renderProductCard()}
           </ScrollView>
           <View
             style={{
@@ -95,10 +80,10 @@ class StoresScreen extends React.Component {
 
 export default connect(
   state => ({
-    stores: state.stores,
+    products: state.products,
   }),
-  { fetchStores },
-)(StoresScreen);
+  { fetchProducts },
+)(ShoppingListScreen);
 
 const styles = StyleSheet.create({
   container: {

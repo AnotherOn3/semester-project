@@ -1,4 +1,4 @@
-import { get } from './common';
+import { get, getById } from './common';
 
 class Api {
   async getStores() {
@@ -11,8 +11,8 @@ class Api {
     return data;
   }
 
-  async getStoreProducts() {
-    const { data } = await get('stores/:id');
+  async getStoreProducts(id) {
+    const { data } = await getById('stores', id);
     return data;
   }
 }

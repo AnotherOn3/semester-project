@@ -3,6 +3,7 @@ import { View, Text, Image, Platform } from 'react-native';
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
 import StoresScreen from '../screens/StoresScreen/StoresScreen';
 import ProductsScreen from '../screens/ProductsScreen/ProductsScreen';
+import ShoppingListScreen from '../screens/ShoppingListScreen/ShoppingListScreen';
 import Styles from '../shared/styles';
 import StoreProductsScreen from '../screens/StoreProductsScreen/StoreProductsScreen';
 import Header from '../components/Header/Header';
@@ -35,7 +36,7 @@ const Navigator = TabNavigator(
       },
     },
     ShoppingList: {
-      screen: StoresScreen,
+      screen: ShoppingListScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
@@ -71,16 +72,13 @@ const Navigator = TabNavigator(
   },
 );
 
-const StoreProductsNavigator = StackNavigator(
-  {
-    Home: {
-      screen: Navigator,
-    },
-    Store: {
-      screen: StoreProductsScreen,
-    },
+const StoreProductsNavigator = StackNavigator({
+  Home: {
+    screen: Navigator,
   },
-  {},
-);
+  Store: {
+    screen: StoreProductsScreen,
+  },
+});
 
 export default StoreProductsNavigator;
