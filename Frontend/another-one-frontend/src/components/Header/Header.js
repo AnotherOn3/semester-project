@@ -1,9 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Styles from '../../shared/styles';
+import { LinearGradient } from 'expo';
 
 const Header = props => (
   <View style={styles.header}>
+    <LinearGradient
+      colors={['#190959', '#590921']}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        alignItems: 'center',
+        flex: 1,
+        width: '100%',
+      }}
+    />
     <Image source={props.imageUri} style={styles.image} />
     <Text style={styles.title}>{props.title}</Text>
   </View>
@@ -15,6 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 999999,
   },
   image: {
     opacity: 0.6,

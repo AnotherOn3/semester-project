@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
-import { fetchProducts } from './actions';
+import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
 
-class ProductsScreen extends React.Component {
+class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
       <Header
-        title="Products"
+        title="Shopping List"
         imageUri={require('../../../assets/images/store-inactive.png')}
       />
     ),
@@ -32,7 +32,7 @@ class ProductsScreen extends React.Component {
           productQuantity={product.quantity}
           productQuantityType={product.quantityType}
           productPrice={product.price}
-          cardTitle="+"
+          cardTitle="-"
         />
       ));
     }
@@ -84,7 +84,7 @@ export default connect(
     products: state.products,
   }),
   { fetchProducts },
-)(ProductsScreen);
+)(ShoppingListScreen);
 
 const styles = StyleSheet.create({
   container: {

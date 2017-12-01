@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Styles from '../../shared/styles';
 
 import PopularProduct from '../PopularProduct/PopularProduct';
@@ -36,11 +42,14 @@ const StoreCard = props => {
         <Text style={styles.popularDiscountsText}>Popular discounts</Text>
         <View>{props.popularProduct}</View>
       </View>
+
       <View style={styles.cardRightContainer}>
-        <Image
-          style={styles.chevronStyle}
-          source={{ uri: 'https://placehold.it/20x20.png' }}
-        />
+        <TouchableWithoutFeedback onPress={props.handleNavigation}>
+          <Image
+            style={styles.chevronStyle}
+            source={{ uri: 'https://placehold.it/20x20.png' }}
+          />
+        </TouchableWithoutFeedback>
       </View>
     </View>
   );
@@ -52,9 +61,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '96%',
-    marginBottom: '7%',
-    marginLeft: '2%',
+    width: '94%',
+    marginBottom: 10,
+    marginTop: 10,
     height: 156,
     elevation: 5,
     shadowColor: 'black',

@@ -28,7 +28,7 @@ function fetchStoreProductsFail(error) {
 export function fetchStoreProducts() {
   return function(dispatch) {
     return Api.getStoreProducts()
-      .then(products => {
+      .then(storeProducts => {
         dispatch(fetchStoreProductsSuccess(storeProducts));
       })
       .catch(error, dispatch => {

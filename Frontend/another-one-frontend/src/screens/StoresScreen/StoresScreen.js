@@ -5,8 +5,17 @@ import StoreCard from '../../components/StoreCard/StoreCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct';
 import Header from '../../components/Header/Header';
 import { fetchStores } from './actions';
+import { LinearGradient } from 'expo';
 
 class StoresScreen extends React.Component {
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    header: (
+      <Header
+        title="Stores"
+        imageUri={require('../../../assets/images/store-inactive.png')}
+      />
+    ),
+  });
   componentDidMount() {
     this.props.fetchStores();
   }
@@ -24,6 +33,10 @@ class StoresScreen extends React.Component {
     ));
   };
 
+  goToSingleStore = (id, name) => {
+    this.props.navigation.navigate('Store', { id: id, name: name });
+  };
+
   renderStoreCard = () => {
     if (this.props.stores) {
       return this.props.stores.stores.map(store => (
@@ -33,6 +46,7 @@ class StoresScreen extends React.Component {
           shopImageUrl={store.image}
           discountNumber={store.discountNumber}
           popularProduct={this.renderPopularProduct(store)}
+          handleNavigation={() => this.goToSingleStore(store.id, store.name)}
         />
       ));
     }
@@ -42,9 +56,17 @@ class StoresScreen extends React.Component {
     if (this.props.stores) {
       return (
         <View>
-          <Header
-            imageUri={require('../../../assets/images/store-active.png')}
-            title="Stores"
+          <LinearGradient
+            colors={['#FBBB3B', '#F19143']}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 100,
+              alignItems: 'center',
+              flex: 1,
+              width: '100%',
+            }}
           />
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -53,6 +75,16 @@ class StoresScreen extends React.Component {
           >
             {this.renderStoreCard()}
           </ScrollView>
+          <View
+            style={{
+              height: '30%',
+              width: '94%',
+              borderTopColor: 'black',
+              borderTopWidth: 2,
+              alignSelf: 'center',
+              marginTop: 7,
+            }}
+          />
         </View>
       );
     } else {
@@ -70,8 +102,8 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 60,
   },
 });

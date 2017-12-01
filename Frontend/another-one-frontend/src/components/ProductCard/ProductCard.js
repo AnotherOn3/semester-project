@@ -49,7 +49,7 @@ const ProductCard = props => {
         </View>
       </View>
       <View style={styles.cardRightContainer}>
-        <ShopCardButton Title="+" />
+        <ShopCardButton Title={props.cardTitle} />
       </View>
     </View>
   );
@@ -72,6 +72,8 @@ const styles = StyleSheet.create({
       height: 3,
     },
     shadowRadius: 6,
+    marginTop: 10,
+    marginBottom: 10,
   },
 
   cardLeftContainer: {
