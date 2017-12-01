@@ -32,6 +32,7 @@ class ProductsScreen extends React.Component {
           productQuantity={product.quantity}
           productQuantityType={product.quantityType}
           productPrice={product.price}
+          cardTitle="+"
         />
       ));
     }

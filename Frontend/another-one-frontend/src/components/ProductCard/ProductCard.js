@@ -49,7 +49,7 @@ const ProductCard = props => {
         </View>
       </View>
       <View style={styles.cardRightContainer}>
-        <ShopCardButton Title="+" />
+        <ShopCardButton Title={props.cardTitle} />
       </View>
     </View>
   );
