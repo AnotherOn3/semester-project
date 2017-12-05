@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  AsyncStorage,
+} from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
@@ -17,29 +23,48 @@ class ShoppingListScreen extends React.Component {
     ),
   });
 
-  componentDidMount() {
-    this.props.fetchProducts();
-  }
+  state = {
+    item: {},
+    error: '',
+    loading: true,
+    updatingStorage: false,
+  };
+
+  async componentDidMount() {}
+
+  load = async () => {
+    const response = await AsyncStorage.getItem('item');
+    const item = await JSON.parse(response);
+    await this.setState({
+      item,
+      error: '',
+      loading: false,
+      updatingStorage: !this.state.updatingStorage,
+    });
+  };
 
   renderProductCard = () => {
-    if (this.props.products) {
-      return this.props.products.products.map(product => (
+    const { item } = this.state;
+    if (item) {
+      return (
         <ProductCard
-          key={product.id}
-          productName={product.name}
-          shopImageUrl={product.shopImage}
-          productImageUrl={product.image}
-          productQuantity={product.quantity}
-          productQuantityType={product.quantityType}
-          productPrice={product.price}
+          key={item.id}
+          productName={item.name}
+          shopImageUrl={item.shopImage}
+          productImageUrl={item.image}
+          productQuantity={item.quantity}
+          productQuantityType={item.quantityType}
+          productPrice={item.price}
           cardTitle="-"
+          handleStorage={() => this.load()}
         />
-      ));
+      );
     }
   };
 
   render() {
-    if (this.props.products) {
+    console.log(this.state);
+    if (this.state.item) {
       return (
         <View>
           <LinearGradient
@@ -74,17 +99,12 @@ class ShoppingListScreen extends React.Component {
         </View>
       );
     } else {
-      return <View>Loading...</View>;
+      return <Text>Loading...</Text>;
     }
   }
 }
 
-export default connect(
-  state => ({
-    products: state.products,
-  }),
-  { fetchProducts },
-)(ShoppingListScreen);
+export default ShoppingListScreen;
 
 const styles = StyleSheet.create({
   container: {

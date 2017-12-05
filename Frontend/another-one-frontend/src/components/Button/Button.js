@@ -2,12 +2,10 @@ import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import Styles from '../../shared/styles';
 
-const handleClick = () => {};
-
 const ShopCardButton = props => {
   return (
     <TouchableOpacity
-      onPress={() => handleClick()}
+      onPress={props.handleClick}
       style={styles.ButtonContainer}
     >
       <View>

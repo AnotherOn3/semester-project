@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  AsyncStorage,
+} from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
@@ -21,6 +27,15 @@ class ProductsScreen extends React.Component {
     this.props.fetchProducts();
   }
 
+  addToShoppingList = async item => {
+    try {
+      const stringify = JSON.stringify(item);
+      const storageItem = await AsyncStorage.setItem('item', stringify);
+    } catch (error) {
+      console.log('Error adding item', error);
+    }
+  };
+
   renderProductCard = () => {
     if (this.props.products) {
       return this.props.products.products.map(product => (
@@ -33,6 +48,7 @@ class ProductsScreen extends React.Component {
           productQuantityType={product.quantityType}
           productPrice={product.price}
           cardTitle="+"
+          handleStorage={() => this.addToShoppingList(product)}
         />
       ));
     }

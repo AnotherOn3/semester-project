@@ -49,7 +49,10 @@ const ProductCard = props => {
         </View>
       </View>
       <View style={styles.cardRightContainer}>
-        <ShopCardButton Title={props.cardTitle} />
+        <ShopCardButton
+          handleClick={props.handleStorage}
+          Title={props.cardTitle}
+        />
       </View>
     </View>
   );
