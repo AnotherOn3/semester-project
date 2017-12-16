@@ -47,7 +47,7 @@ const StoreCard = props => {
         <TouchableWithoutFeedback onPress={props.handleNavigation}>
           <Image
             style={styles.chevronStyle}
-            source={{ uri: 'https://placehold.it/20x20.png' }}
+            source={require('../../../assets/images/chevron.png')}
           />
         </TouchableWithoutFeedback>
       </View>
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
     fontFamily: Styles.SemiBold,
   },
   chevronStyle: {
-    width: 20,
-    height: 20,
+    width: 11,
+    height: 18,
   },
 });
 
