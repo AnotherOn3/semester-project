@@ -4,11 +4,11 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
+  Text,
   AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
 import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
@@ -24,29 +24,29 @@ class ShoppingListScreen extends React.Component {
   });
 
   state = {
-    item: {},
+    items: [],
     error: '',
     loading: true,
-    updatingStorage: false,
+    // updatingStorage: false,
   };
 
   async componentDidMount() {}
 
   load = async () => {
-    const response = await AsyncStorage.getItem('item');
-    const item = await JSON.parse(response);
+    const response = await AsyncStorage.getItem('items');
+    const items = await JSON.parse(response);
     await this.setState({
-      item,
+      items,
       error: '',
       loading: false,
-      updatingStorage: !this.state.updatingStorage,
+      // updatingStorage: !this.state.updatingStorage,
     });
   };
 
   renderProductCard = () => {
-    const { item } = this.state;
+    const { items } = this.state;
     if (item) {
-      return (
+      return items.map(item => (
         <ProductCard
           key={item.id}
           productName={item.name}
@@ -58,7 +58,7 @@ class ShoppingListScreen extends React.Component {
           cardTitle="-"
           handleStorage={() => this.load()}
         />
-      );
+      ));
     }
   };
 

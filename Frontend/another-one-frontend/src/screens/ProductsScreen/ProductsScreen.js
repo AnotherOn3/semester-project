@@ -29,8 +29,11 @@ class ProductsScreen extends React.Component {
 
   addToShoppingList = async item => {
     try {
-      const stringify = JSON.stringify(item);
-      const storageItem = await AsyncStorage.setItem('item', stringify);
+      const parsedStorage = JSON.parse(await AsyncStorage.getItem('items'));
+      if (typeof parsedStorage === [] && parsedStorage.length < 0) {
+        parsedStorage.push(item);
+        await AsyncStorage.setItem('items', storage);
+      }
     } catch (error) {
       console.log('Error adding item', error);
     }
