@@ -18,24 +18,29 @@ class ProductsScreen extends React.Component {
     header: (
       <Header
         title="Products"
-        imageUri={require('../../../assets/images/store-inactive.png')}
+        imageUri={require('../../../assets/images/products-inactive.png')}
       />
     ),
   });
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchProducts();
+    // await AsyncStorage.setItem('items', this.props.fetchProducts);
   }
 
   addToShoppingList = async item => {
-    try {
-      const parsedStorage = JSON.parse(await AsyncStorage.getItem('items'));
-      if (typeof parsedStorage === [] && parsedStorage.length < 0) {
+    const storage = await AsyncStorage.getItem('items');
+    const parsedStorage = JSON.parse(storage);
+    if (!parsedStorage.includes(item)) {
+      try {
         parsedStorage.push(item);
-        await AsyncStorage.setItem('items', storage);
+        const stringifiedStorage = JSON.stringify(parsedStorage);
+        await AsyncStorage.setItem('items', stringifiedStorage);
+      } catch (error) {
+        console.log('error adding items in shopping cart');
       }
-    } catch (error) {
-      console.log('Error adding item', error);
+    } else {
+      console.log('Item already exists');
     }
   };
 

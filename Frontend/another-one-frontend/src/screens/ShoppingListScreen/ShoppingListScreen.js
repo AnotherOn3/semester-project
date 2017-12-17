@@ -18,7 +18,7 @@ class ShoppingListScreen extends React.Component {
     header: (
       <Header
         title="Shopping List"
-        imageUri={require('../../../assets/images/store-inactive.png')}
+        imageUri={require('../../../assets/images/shopping-list-inactive.png')}
       />
     ),
   });
@@ -27,28 +27,36 @@ class ShoppingListScreen extends React.Component {
     items: [],
     error: '',
     loading: true,
-    // updatingStorage: false,
   };
 
-  async componentDidMount() {}
-
-  load = async () => {
-    const response = await AsyncStorage.getItem('items');
-    const items = await JSON.parse(response);
-    await this.setState({
-      items,
+  async componentDidMount() {
+    const storage = await AsyncStorage.getItem('items');
+    const parsedStorage = await JSON.parse(storage);
+    this.setState({
+      items: parsedStorage,
       error: '',
       loading: false,
-      // updatingStorage: !this.state.updatingStorage,
+    });
+  }
+
+  removeItem = async index => {
+    const storage = await AsyncStorage.getItem('items');
+    let parsedStorage = await JSON.parse(storage);
+    parsedStorage.splice(index, 1);
+    await AsyncStorage.setItem('items', JSON.stringify(parsedStorage));
+    await this.setState({
+      items: parsedStorage,
+      error: '',
+      loading: false,
     });
   };
 
   renderProductCard = () => {
     const { items } = this.state;
-    if (item) {
-      return items.map(item => (
+    if (items) {
+      return items.map((item, index) => (
         <ProductCard
-          key={item.id}
+          key={(item.id, index)}
           productName={item.name}
           shopImageUrl={item.shopImage}
           productImageUrl={item.image}
@@ -56,15 +64,14 @@ class ShoppingListScreen extends React.Component {
           productQuantityType={item.quantityType}
           productPrice={item.price}
           cardTitle="-"
-          handleStorage={() => this.load()}
+          handleStorage={() => this.removeItem(index)}
         />
       ));
     }
   };
 
   render() {
-    console.log(this.state);
-    if (this.state.item) {
+    if (this.state.items) {
       return (
         <View>
           <LinearGradient

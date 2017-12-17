@@ -34,8 +34,6 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     height: 50,
     width: 105,
-    borderWidth: 1,
-    borderColor: 'white',
     position: 'absolute',
     top: '40%',
     left: '55%',
