@@ -6,6 +6,7 @@ import PopularProduct from '../../components/PopularProduct/PopularProduct';
 import Header from '../../components/Header/Header';
 import { fetchStores } from './actions';
 import { LinearGradient } from 'expo';
+import Notification from '../../components/Notification/Notification';
 
 class StoresScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({

@@ -4,12 +4,14 @@ import {
   ADD_ITEM_SUCCESS,
   CLEAR_ITEMS,
   REMOVE_ITEM,
+  CLEAR_NOTIFICATION,
 } from './actions';
 
 const initState = {
   shoppingList: [],
   error: '',
   loading: true,
+  notification: '',
 };
 
 export default (state = initState, action) => {
@@ -21,6 +23,7 @@ export default (state = initState, action) => {
         ...state,
         shoppingList: [...state.shoppingList, action.payload],
         loading: false,
+        notification: `${action.payload.name} has been added to shopping list`,
       };
     case ADD_ITEM_ERROR:
       return {
@@ -35,7 +38,6 @@ export default (state = initState, action) => {
         loading: false,
       };
     case REMOVE_ITEM:
-      console.log(action.payload);
       return {
         ...state,
         shoppingList: [
@@ -43,6 +45,11 @@ export default (state = initState, action) => {
           ...state.shoppingList.slice(action.payload + 1),
         ],
         loading: false,
+      };
+    case CLEAR_NOTIFICATION:
+      return {
+        ...state,
+        notification: '',
       };
     default:
       return state;

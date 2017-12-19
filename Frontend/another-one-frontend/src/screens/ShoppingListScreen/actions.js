@@ -3,6 +3,7 @@ export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
 export const ADD_ITEM_ERROR = 'ADD_ITEM_ERROR';
 export const CLEAR_ITEMS = 'CLEAR_ITEMS';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
 
 function addItemRequest(item) {
   return {
@@ -38,6 +39,12 @@ function removeItemRequest(item) {
   };
 }
 
+function clearNotificationRequest() {
+  return {
+    type: CLEAR_NOTIFICATION,
+  };
+}
+
 export function addItem(item) {
   return async function(dispatch) {
     try {
@@ -55,8 +62,13 @@ export function clearItems() {
 }
 
 export function removeItem(item) {
-  console.log(item);
   return async function(dispatch) {
     return dispatch(removeItemRequest(item));
+  };
+}
+
+export function clearNotification() {
+  return async function(dispatch) {
+    return dispatch(clearNotificationRequest());
   };
 }
