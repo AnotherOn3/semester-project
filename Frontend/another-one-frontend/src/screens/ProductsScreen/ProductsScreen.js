@@ -25,22 +25,17 @@ class ProductsScreen extends React.Component {
 
   async componentDidMount() {
     this.props.fetchProducts();
-    // await AsyncStorage.setItem('items', this.props.fetchProducts);
   }
 
   addToShoppingList = async item => {
     const storage = await AsyncStorage.getItem('items');
     const parsedStorage = JSON.parse(storage);
-    if (!parsedStorage.includes(item)) {
-      try {
-        parsedStorage.push(item);
-        const stringifiedStorage = JSON.stringify(parsedStorage);
-        await AsyncStorage.setItem('items', stringifiedStorage);
-      } catch (error) {
-        console.log('error adding items in shopping cart');
-      }
-    } else {
-      console.log('Item already exists');
+    try {
+      parsedStorage.push(item);
+      const stringifiedStorage = JSON.stringify(parsedStorage);
+      await AsyncStorage.setItem('items', stringifiedStorage);
+    } catch (error) {
+      console.log('error adding items in shopping cart');
     }
   };
 
