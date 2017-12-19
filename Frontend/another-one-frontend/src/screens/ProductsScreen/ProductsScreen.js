@@ -1,17 +1,13 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Platform,
-  AsyncStorage,
-} from 'react-native';
+import { View, ScrollView, StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
 import { fetchProducts } from './actions';
 import { LinearGradient } from 'expo';
+import { addItem } from '../ShoppingListScreen/actions';
+import store from '../../redux_config/store';
 
 class ProductsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -27,18 +23,6 @@ class ProductsScreen extends React.Component {
     this.props.fetchProducts();
   }
 
-  addToShoppingList = async item => {
-    const storage = await AsyncStorage.getItem('items');
-    const parsedStorage = JSON.parse(storage);
-    try {
-      parsedStorage.push(item);
-      const stringifiedStorage = JSON.stringify(parsedStorage);
-      await AsyncStorage.setItem('items', stringifiedStorage);
-    } catch (error) {
-      console.log('error adding items in shopping cart');
-    }
-  };
-
   renderProductCard = () => {
     if (this.props.products) {
       return this.props.products.products.map(product => (
@@ -51,7 +35,7 @@ class ProductsScreen extends React.Component {
           productQuantityType={product.quantityType}
           productPrice={product.price}
           cardTitle="+"
-          handleStorage={() => this.addToShoppingList(product)}
+          handleStorage={() => store.dispatch(addItem(product))}
         />
       ));
     }
@@ -101,8 +85,9 @@ class ProductsScreen extends React.Component {
 export default connect(
   state => ({
     products: state.products,
+    shoppingList: state.shoppingList,
   }),
-  { fetchProducts },
+  { fetchProducts, addItem },
 )(ProductsScreen);
 
 const styles = StyleSheet.create({

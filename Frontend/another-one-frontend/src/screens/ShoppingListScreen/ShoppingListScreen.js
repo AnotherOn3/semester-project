@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Platform,
-  Text,
-  AsyncStorage,
-} from 'react-native';
+import { View, ScrollView, StyleSheet, Platform, Text } from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Header from '../../components/Header/Header';
@@ -14,6 +7,7 @@ import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
 import ClearButton from '../../components/Button/ClearButton';
 import Styles from '../../shared/styles';
+import { addItem, clearItems, removeItem } from './actions';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -26,47 +20,21 @@ class ShoppingListScreen extends React.Component {
   });
 
   state = {
-    items: [],
-    error: '',
-    loading: true,
     price: 0,
   };
 
-  async componentDidMount() {
-    const storage = await AsyncStorage.getItem('items');
-    const parsedStorage = JSON.parse(storage);
-    this.setState({
-      items: parsedStorage,
-      error: '',
-      loading: false,
-    });
-  }
-
-  removeItem = async index => {
-    const storage = await AsyncStorage.getItem('items');
-    let parsedStorage = await JSON.parse(storage);
-    parsedStorage.splice(index, 1);
-    await AsyncStorage.setItem('items', JSON.stringify(parsedStorage));
-    await this.setState({
-      items: parsedStorage,
-      error: '',
-      loading: false,
-    });
+  deleteItem = index => {
+    this.props.removeItem(index);
   };
 
-  clearItems = async () => {
-    await AsyncStorage.setItem('items', '[]');
-    await this.setState({
-      items: [],
-      error: '',
-      loading: false,
-    });
+  clearItems = () => {
+    this.props.clearItems();
   };
 
   renderProductCard = () => {
-    const { items } = this.state;
-    if (this.state.items) {
-      return this.state.items.map((item, index) => (
+    const { shoppingList } = this.props.shoppingList;
+    if (shoppingList) {
+      return shoppingList.map((item, index) => (
         <ProductCard
           key={(item.id, index)}
           productName={item.name}
@@ -76,7 +44,7 @@ class ShoppingListScreen extends React.Component {
           productQuantityType={item.quantityType}
           productPrice={item.price}
           cardTitle="-"
-          handleStorage={() => this.removeItem(index)}
+          handleStorage={() => this.deleteItem(index)}
         />
       ));
     }
@@ -84,7 +52,7 @@ class ShoppingListScreen extends React.Component {
 
   renderPrice = () => {
     let price = 0;
-    this.state.items.map(item => {
+    this.props.shoppingList.shoppingList.map(item => {
       price += item.price;
     });
     return price;
@@ -92,7 +60,7 @@ class ShoppingListScreen extends React.Component {
   };
 
   render() {
-    if (this.state.items) {
+    if (this.props.shoppingList) {
       return (
         <View style={{ flex: 1 }}>
           <LinearGradient
@@ -144,7 +112,12 @@ class ShoppingListScreen extends React.Component {
   }
 }
 
-export default ShoppingListScreen;
+export default connect(
+  state => ({
+    shoppingList: state.shoppingList,
+  }),
+  { addItem, clearItems, removeItem },
+)(ShoppingListScreen);
 
 const styles = StyleSheet.create({
   container: {
