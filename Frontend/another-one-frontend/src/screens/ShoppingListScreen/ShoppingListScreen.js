@@ -1,8 +1,14 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  Text,
+  AsyncStorage,
+} from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
 import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
@@ -12,34 +18,60 @@ class ShoppingListScreen extends React.Component {
     header: (
       <Header
         title="Shopping List"
-        imageUri={require('../../../assets/images/store-inactive.png')}
+        imageUri={require('../../../assets/images/shopping-list-inactive.png')}
       />
     ),
   });
 
-  componentDidMount() {
-    this.props.fetchProducts();
+  state = {
+    items: [],
+    error: '',
+    loading: true,
+  };
+
+  async componentDidMount() {
+    const storage = await AsyncStorage.getItem('items');
+    const parsedStorage = await JSON.parse(storage);
+    this.setState({
+      items: parsedStorage,
+      error: '',
+      loading: false,
+    });
   }
 
+  removeItem = async index => {
+    const storage = await AsyncStorage.getItem('items');
+    let parsedStorage = await JSON.parse(storage);
+    parsedStorage.splice(index, 1);
+    await AsyncStorage.setItem('items', JSON.stringify(parsedStorage));
+    await this.setState({
+      items: parsedStorage,
+      error: '',
+      loading: false,
+    });
+  };
+
   renderProductCard = () => {
-    if (this.props.products) {
-      return this.props.products.products.map(product => (
+    const { items } = this.state;
+    if (items) {
+      return items.map((item, index) => (
         <ProductCard
-          key={product.id}
-          productName={product.name}
-          shopImageUrl={product.shopImage}
-          productImageUrl={product.image}
-          productQuantity={product.quantity}
-          productQuantityType={product.quantityType}
-          productPrice={product.price}
+          key={(item.id, index)}
+          productName={item.name}
+          shopImageUrl={item.shopImage}
+          productImageUrl={item.image}
+          productQuantity={item.quantity}
+          productQuantityType={item.quantityType}
+          productPrice={item.price}
           cardTitle="-"
+          handleStorage={() => this.removeItem(index)}
         />
       ));
     }
   };
 
   render() {
-    if (this.props.products) {
+    if (this.state.items) {
       return (
         <View>
           <LinearGradient
@@ -74,17 +106,12 @@ class ShoppingListScreen extends React.Component {
         </View>
       );
     } else {
-      return <View>Loading...</View>;
+      return <Text>Loading...</Text>;
     }
   }
 }
 
-export default connect(
-  state => ({
-    products: state.products,
-  }),
-  { fetchProducts },
-)(ShoppingListScreen);
+export default ShoppingListScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  AsyncStorage,
+} from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
@@ -12,14 +18,31 @@ class ProductsScreen extends React.Component {
     header: (
       <Header
         title="Products"
-        imageUri={require('../../../assets/images/store-inactive.png')}
+        imageUri={require('../../../assets/images/products-inactive.png')}
       />
     ),
   });
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchProducts();
+    // await AsyncStorage.setItem('items', this.props.fetchProducts);
   }
+
+  addToShoppingList = async item => {
+    const storage = await AsyncStorage.getItem('items');
+    const parsedStorage = JSON.parse(storage);
+    if (!parsedStorage.includes(item)) {
+      try {
+        parsedStorage.push(item);
+        const stringifiedStorage = JSON.stringify(parsedStorage);
+        await AsyncStorage.setItem('items', stringifiedStorage);
+      } catch (error) {
+        console.log('error adding items in shopping cart');
+      }
+    } else {
+      console.log('Item already exists');
+    }
+  };
 
   renderProductCard = () => {
     if (this.props.products) {
@@ -33,6 +56,7 @@ class ProductsScreen extends React.Component {
           productQuantityType={product.quantityType}
           productPrice={product.price}
           cardTitle="+"
+          handleStorage={() => this.addToShoppingList(product)}
         />
       ));
     }
