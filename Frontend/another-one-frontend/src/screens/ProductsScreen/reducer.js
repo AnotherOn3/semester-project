@@ -9,6 +9,7 @@ const initState = {
   error: '',
   loading: true,
 };
+
 export default (state = initState, action) => {
   switch (action.type) {
     case FETCH_PRODUCTS_PENDING:

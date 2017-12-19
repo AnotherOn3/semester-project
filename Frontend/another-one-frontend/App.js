@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ScrollView, View } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, AsyncStorage } from 'react-native';
 import StoreCard from './src/components/StoreCard/StoreCard';
 import ProductCard from './src/components/ProductCard/ProductCard';
 import StoreProductCard from './src/components/StoreProductCard/StoreProductCard';
@@ -9,10 +9,11 @@ import store from './src/redux_config/store';
 import StoreScreen from './src/screens/StoresScreen/StoresScreen';
 import StoreProductsNavigator from './src/routes/Navigator';
 import { Font } from 'expo';
+import { persistStore } from 'redux-persist';
 
 export default class App extends React.Component {
   state = {
-    fontLoaded: false,
+    isReady: false,
   };
   async componentDidMount() {
     await Font.loadAsync([
@@ -23,10 +24,19 @@ export default class App extends React.Component {
       { Regular: require('./assets/fonts/Regular.otf') },
       { SemiBold: require('./assets/fonts/SemiBold.otf') },
     ]);
-    this.setState({ fontLoaded: true });
+    persistStore(
+      store,
+      {
+        storage: AsyncStorage,
+        whitelist: ['shoppingList'],
+      },
+      () => {
+        this.setState({ isReady: true });
+      },
+    );
   }
   render() {
-    if (this.state.fontLoaded) {
+    if (this.state.isReady) {
       return (
         <Provider store={store}>
           <StoreProductsNavigator />
