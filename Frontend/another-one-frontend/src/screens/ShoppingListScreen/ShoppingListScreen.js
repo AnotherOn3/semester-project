@@ -12,6 +12,8 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import Header from '../../components/Header/Header';
 import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
+import ClearButton from '../../components/Button/ClearButton';
+import Styles from '../../shared/styles';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -27,11 +29,12 @@ class ShoppingListScreen extends React.Component {
     items: [],
     error: '',
     loading: true,
+    price: 0,
   };
 
   async componentDidMount() {
     const storage = await AsyncStorage.getItem('items');
-    const parsedStorage = await JSON.parse(storage);
+    const parsedStorage = JSON.parse(storage);
     this.setState({
       items: parsedStorage,
       error: '',
@@ -51,10 +54,19 @@ class ShoppingListScreen extends React.Component {
     });
   };
 
+  clearItems = async () => {
+    await AsyncStorage.setItem('items', '[]');
+    await this.setState({
+      items: [],
+      error: '',
+      loading: false,
+    });
+  };
+
   renderProductCard = () => {
     const { items } = this.state;
-    if (items) {
-      return items.map((item, index) => (
+    if (this.state.items) {
+      return this.state.items.map((item, index) => (
         <ProductCard
           key={(item.id, index)}
           productName={item.name}
@@ -70,17 +82,26 @@ class ShoppingListScreen extends React.Component {
     }
   };
 
+  renderPrice = () => {
+    let price = 0;
+    this.state.items.map(item => {
+      price += item.price;
+    });
+    return price;
+    this.setState({ price: price });
+  };
+
   render() {
     if (this.state.items) {
       return (
-        <View>
+        <View style={{ flex: 1 }}>
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
-              bottom: 100,
+              bottom: 0,
               alignItems: 'center',
               flex: 1,
               width: '100%',
@@ -93,10 +114,22 @@ class ShoppingListScreen extends React.Component {
           >
             {this.renderProductCard()}
           </ScrollView>
+          <View style={styles.bottomContainer}>
+            <View>
+              <ClearButton
+                handleClick={() => this.clearItems()}
+                Title="Clear all"
+              />
+            </View>
+            <View>
+              <Text style={styles.text}>Full price:</Text>
+              <Text style={styles.text}>{this.renderPrice()} ,-DKK</Text>
+            </View>
+          </View>
           <View
             style={{
-              height: '30%',
               width: '94%',
+              height: '10%',
               borderTopColor: 'black',
               borderTopWidth: 2,
               alignSelf: 'center',
@@ -118,5 +151,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 60,
+  },
+  bottomContainer: {
+    marginTop: 10,
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+  },
+  text: {
+    backgroundColor: 'transparent',
+    fontSize: 16,
+    color: 'white',
+    fontFamily: Styles.SemiBold,
+    textAlign: 'right',
   },
 });
