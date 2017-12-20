@@ -48,6 +48,7 @@ class ShoppingListScreen extends React.Component {
     if (this.props.shoppingList.shoppingListNotification !== '') {
       return (
         <ShoppingListNotification
+          hide={() => this.props.clearShoppingListNotification()}
           text={this.props.shoppingList.shoppingListNotification}
         />
       );

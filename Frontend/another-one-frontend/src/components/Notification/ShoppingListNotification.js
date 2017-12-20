@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import Styles from '../../shared/styles';
 
 const PopularProduct = props => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={props.hide} style={styles.container}>
       <Text style={styles.text}>{props.text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
