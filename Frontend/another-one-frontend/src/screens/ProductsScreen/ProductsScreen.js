@@ -6,7 +6,10 @@ import PopularProduct from '../../components/PopularProduct/PopularProduct'; // 
 import Header from '../../components/Header/Header';
 import { fetchProducts } from './actions';
 import { LinearGradient } from 'expo';
-import { addItem, clearNotification } from '../ShoppingListScreen/actions';
+import {
+  addItem,
+  clearProductsNotification,
+} from '../ShoppingListScreen/actions';
 import store from '../../redux_config/store';
 import Notification from '../../components/Notification/Notification';
 
@@ -23,7 +26,7 @@ class ProductsScreen extends React.Component {
   componentDidMount() {
     this.props.fetchProducts();
     setInterval(() => {
-      this.props.clearNotification();
+      this.props.clearProductsNotification();
     }, 5000);
   }
 
@@ -46,9 +49,11 @@ class ProductsScreen extends React.Component {
   };
 
   renderNotification = () => {
-    console.log(this.props.shoppingList.notification);
-    if (this.props.shoppingList.notification !== '') {
-      return <Notification text={this.props.shoppingList.notification} />;
+    console.log(this.props.shoppingList.productsNotification);
+    if (this.props.shoppingList.productsNotification !== '') {
+      return (
+        <Notification text={this.props.shoppingList.productsNotification} />
+      );
     } else {
       return null;
     }
@@ -101,7 +106,7 @@ export default connect(
     products: state.products,
     shoppingList: state.shoppingList,
   }),
-  { fetchProducts, addItem, clearNotification },
+  { fetchProducts, addItem, clearProductsNotification },
 )(ProductsScreen);
 
 const styles = StyleSheet.create({

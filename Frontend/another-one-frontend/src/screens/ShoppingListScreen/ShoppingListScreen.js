@@ -7,7 +7,13 @@ import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
 import ClearButton from '../../components/Button/ClearButton';
 import Styles from '../../shared/styles';
-import { addItem, clearItems, removeItem } from './actions';
+import {
+  addItem,
+  clearItems,
+  removeItem,
+  clearShoppingListNotification,
+} from './actions';
+import ShoppingListNotification from '../../components/Notification/ShoppingListNotification';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -19,16 +25,35 @@ class ShoppingListScreen extends React.Component {
     ),
   });
 
+  componentDidMount() {
+    setInterval(() => {
+      this.props.clearShoppingListNotification();
+    }, 5000);
+  }
+
   state = {
     price: 0,
   };
 
-  deleteItem = index => {
-    this.props.removeItem(index);
+  deleteItem = (item, index) => {
+    this.props.removeItem(item, index);
   };
 
   clearItems = () => {
     this.props.clearItems();
+  };
+
+  renderNotification = () => {
+    console.log(this.props.shoppingList.shoppingListNotification);
+    if (this.props.shoppingList.shoppingListNotification !== '') {
+      return (
+        <ShoppingListNotification
+          text={this.props.shoppingList.shoppingListNotification}
+        />
+      );
+    } else {
+      return null;
+    }
   };
 
   renderProductCard = () => {
@@ -44,7 +69,7 @@ class ShoppingListScreen extends React.Component {
           productQuantityType={item.quantityType}
           productPrice={item.price}
           cardTitle="-"
-          handleStorage={() => this.deleteItem(index)}
+          handleStorage={() => this.deleteItem(item, index)}
         />
       ));
     }
@@ -60,9 +85,11 @@ class ShoppingListScreen extends React.Component {
   };
 
   render() {
+    console.log(this.props.shoppingList.shoppingListNotification);
     if (this.props.shoppingList) {
       return (
         <View style={{ flex: 1 }}>
+          {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
@@ -116,7 +143,7 @@ export default connect(
   state => ({
     shoppingList: state.shoppingList,
   }),
-  { addItem, clearItems, removeItem },
+  { addItem, clearItems, removeItem, clearShoppingListNotification },
 )(ShoppingListScreen);
 
 const styles = StyleSheet.create({

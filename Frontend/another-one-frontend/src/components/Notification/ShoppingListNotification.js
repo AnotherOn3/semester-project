@@ -14,9 +14,10 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     height: 40,
+    // width: 250,
     backgroundColor: '#590921',
     right: 10,
-    bottom: 270,
+    bottom: 124,
     zIndex: 999999,
     justifyContent: 'center',
     alignItems: 'center',

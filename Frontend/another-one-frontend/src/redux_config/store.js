@@ -6,9 +6,9 @@ import reducers from './reducers';
 
 const middlewares = [thunk];
 
-// if (__DEV__) {
-//   middlewares.push(createLogger());
-// }
+if (__DEV__) {
+  middlewares.push(createLogger());
+}
 
 //we are creating store which can handle promise
 export default createStore(

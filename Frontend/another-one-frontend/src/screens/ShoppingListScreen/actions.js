@@ -3,7 +3,9 @@ export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
 export const ADD_ITEM_ERROR = 'ADD_ITEM_ERROR';
 export const CLEAR_ITEMS = 'CLEAR_ITEMS';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
-export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
+export const CLEAR_PRODUCTS_NOTIFICATION = 'CLEAR_PRODUCTS_NOTIFICATION';
+export const CLEAR_SHOPPING_LIST_NOTIFICATION =
+  'CLEAR_SHOPPING_LIST_NOTIFICATION';
 
 function addItemRequest(item) {
   return {
@@ -32,16 +34,23 @@ function clearItemsRequest() {
   };
 }
 
-function removeItemRequest(item) {
+function removeItemRequest(item, index) {
+  console.log(item, index);
   return {
     type: REMOVE_ITEM,
-    payload: item,
+    payload: { item, index },
   };
 }
 
-function clearNotificationRequest() {
+function clearProductsNotificationRequest() {
   return {
-    type: CLEAR_NOTIFICATION,
+    type: CLEAR_PRODUCTS_NOTIFICATION,
+  };
+}
+
+function clearShoppingListNotificationRequest() {
+  return {
+    type: CLEAR_SHOPPING_LIST_NOTIFICATION,
   };
 }
 
@@ -61,14 +70,20 @@ export function clearItems() {
   };
 }
 
-export function removeItem(item) {
+export function removeItem(item, index) {
   return async function(dispatch) {
-    return dispatch(removeItemRequest(item));
+    return dispatch(removeItemRequest(item, index));
   };
 }
 
-export function clearNotification() {
+export function clearProductsNotification() {
   return async function(dispatch) {
-    return dispatch(clearNotificationRequest());
+    return dispatch(clearProductsNotificationRequest());
+  };
+}
+
+export function clearShoppingListNotification() {
+  return async function(dispatch) {
+    return dispatch(clearShoppingListNotificationRequest());
   };
 }
