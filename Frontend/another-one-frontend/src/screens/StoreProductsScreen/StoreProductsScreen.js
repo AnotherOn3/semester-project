@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import StoreProductCard from '../../components/StoreProductCard/StoreProductCard';
 import Header from '../../components/Header/Header';
 import { fetchStoreProducts } from './actions';
+import Notification from '../../components/Notification/Notification';
+import { addItem } from '../ShoppingListScreen/actions';
 import Api from '../../Utils/api';
 import { LinearGradient } from 'expo';
 
@@ -39,6 +41,7 @@ class StoreProductsScreen extends React.Component {
             productQuantity={product.quantity}
             productQuantityType={product.quantityType}
             productPrice={product.price}
+            handleStorage={() => this.props.addItem(product)}
           />
         ));
       } else {
@@ -49,10 +52,25 @@ class StoreProductsScreen extends React.Component {
     }
   };
 
+  renderNotification = () => {
+    console.log(this.props.shoppingList.shoppingListNotification);
+    if (this.props.shoppingList.shoppingListNotification !== '') {
+      return (
+        <ShoppingListNotification
+          hide={() => this.props.clearShoppingListNotification()}
+          text={this.props.shoppingList.shoppingListNotification}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
+
   render() {
     if (this.state.data) {
       return (
         <View>
+          {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
@@ -83,8 +101,9 @@ class StoreProductsScreen extends React.Component {
 export default connect(
   state => ({
     storeProducts: state.storeProducts,
+    shoppingList: state.shoppingList,
   }),
-  { fetchStoreProducts },
+  { fetchStoreProducts, addItem },
 )(StoreProductsScreen);
 
 const styles = StyleSheet.create({
