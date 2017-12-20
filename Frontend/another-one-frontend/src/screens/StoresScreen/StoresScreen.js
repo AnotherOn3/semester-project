@@ -45,7 +45,7 @@ class StoresScreen extends React.Component {
           key={store.id}
           storeName={store.name}
           shopImageUrl={store.image}
-          discountNumber={store.discountNumber}
+          discountNumber={store.storeProducts.length}
           popularProduct={this.renderPopularProduct(store)}
           handleNavigation={() => this.goToSingleStore(store.id, store.name)}
         />
