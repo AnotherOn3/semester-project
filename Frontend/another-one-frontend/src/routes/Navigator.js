@@ -28,7 +28,7 @@ const Navigator = TabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('../../assets/images/products-inactive.png')}
+            source={require('../../assets/images/products-inactive-tab.png')}
             style={{ height: 20, width: 40, tintColor: tintColor }}
           />
         ),
@@ -40,7 +40,7 @@ const Navigator = TabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('../../assets/images/shopping-list-inactive.png')}
+            source={require('../../assets/images/shopping-list-tab.png')}
             style={{ height: 20, width: 40, tintColor: tintColor }}
           />
         ),
