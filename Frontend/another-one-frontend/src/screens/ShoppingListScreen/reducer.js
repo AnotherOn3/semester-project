@@ -42,7 +42,6 @@ export default (state = initState, action) => {
         loading: false,
       };
     case REMOVE_ITEM:
-      console.log(action);
       return {
         ...state,
         shoppingListNotification: `${

@@ -53,7 +53,6 @@ class StoreProductsScreen extends React.Component {
   };
 
   renderNotification = () => {
-    console.log(this.props.shoppingList.shoppingListNotification);
     if (this.props.shoppingList.shoppingListNotification !== '') {
       return (
         <ShoppingListNotification

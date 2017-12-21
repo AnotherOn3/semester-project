@@ -14,6 +14,7 @@ import {
   clearShoppingListNotification,
 } from './actions';
 import ShoppingListNotification from '../../components/Notification/ShoppingListNotification';
+import EmptyScreen from '../../components/EmptyScreen/EmptyScreen';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -44,7 +45,6 @@ class ShoppingListScreen extends React.Component {
   };
 
   renderNotification = () => {
-    console.log(this.props.shoppingList.shoppingListNotification);
     if (this.props.shoppingList.shoppingListNotification !== '') {
       return (
         <ShoppingListNotification
@@ -59,7 +59,8 @@ class ShoppingListScreen extends React.Component {
 
   renderProductCard = () => {
     const { shoppingList } = this.props.shoppingList;
-    if (shoppingList) {
+    console.log(shoppingList);
+    if (shoppingList.length > 0) {
       return shoppingList.map((item, index) => (
         <ProductCard
           key={(item.id, index)}
@@ -73,6 +74,8 @@ class ShoppingListScreen extends React.Component {
           handleStorage={() => this.deleteItem(item, index)}
         />
       ));
+    } else {
+      return <EmptyScreen />;
     }
   };
 
@@ -85,9 +88,29 @@ class ShoppingListScreen extends React.Component {
     this.setState({ price: price });
   };
 
+  renderBottom = () => {
+    if (this.props.shoppingList.shoppingList.length > 0) {
+      return (
+        <View style={styles.bottomContainer}>
+          <View>
+            <ClearButton
+              handleClick={() => this.clearItems()}
+              Title="Clear all"
+            />
+          </View>
+          <View>
+            <Text style={styles.text}>Full price:</Text>
+            <Text style={styles.text}>{this.renderPrice()} ,-DKK</Text>
+          </View>
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   render() {
-    console.log(this.props.shoppingList.shoppingListNotification);
-    if (this.props.shoppingList) {
+    if (this.props.shoppingList.shoppingList) {
       return (
         <View style={{ flex: 1 }}>
           {this.renderNotification()}
@@ -110,18 +133,7 @@ class ShoppingListScreen extends React.Component {
           >
             {this.renderProductCard()}
           </ScrollView>
-          <View style={styles.bottomContainer}>
-            <View>
-              <ClearButton
-                handleClick={() => this.clearItems()}
-                Title="Clear all"
-              />
-            </View>
-            <View>
-              <Text style={styles.text}>Full price:</Text>
-              <Text style={styles.text}>{this.renderPrice()} ,-DKK</Text>
-            </View>
-          </View>
+          {this.renderBottom()}
           <View
             style={{
               width: '94%',

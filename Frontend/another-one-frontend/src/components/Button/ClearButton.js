@@ -18,7 +18,8 @@ const ClearButton = props => {
 const styles = StyleSheet.create({
   ButtonContainer: {
     backgroundColor: '#29094A',
-    width: 85,
+    paddingLeft: 10,
+    paddingRight: 10,
     height: 35,
     justifyContent: 'center',
     alignItems: 'center',

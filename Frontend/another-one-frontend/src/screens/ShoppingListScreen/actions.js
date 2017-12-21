@@ -35,7 +35,6 @@ function clearItemsRequest() {
 }
 
 function removeItemRequest(item, index) {
-  console.log(item, index);
   return {
     type: REMOVE_ITEM,
     payload: { item, index },
