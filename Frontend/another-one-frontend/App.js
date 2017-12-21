@@ -10,12 +10,22 @@ import StoreScreen from './src/screens/StoresScreen/StoresScreen';
 import StoreProductsNavigator from './src/routes/Navigator';
 import { Font } from 'expo';
 import { persistStore } from 'redux-persist';
+import firebase from 'firebase';
 
 export default class App extends React.Component {
   state = {
     isReady: false,
   };
   async componentDidMount() {
+    const config = {
+      apiKey: 'AIzaSyD1YU4buiv03RmD6d2j1A-GOfQ1PrG26C8',
+      authDomain: 'another-one-d34d5.firebaseapp.com',
+      databaseURL: 'https://another-one-d34d5.firebaseio.com',
+      projectId: 'another-one-d34d5',
+      storageBucket: 'another-one-d34d5.appspot.com',
+      messagingSenderId: '125403101204',
+    };
+    firebase.initializeApp(config);
     await Font.loadAsync([
       { Light: require('./assets/fonts/Light.otf') },
       { Bold: require('./assets/fonts/Bold.otf') },

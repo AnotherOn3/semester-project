@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import StoreCard from '../../components/StoreCard/StoreCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct';
 import Header from '../../components/Header/Header';
-import { fetchStores } from './actions';
+import { fetchStores, loginAnon } from './actions';
 import { LinearGradient } from 'expo';
+import ClearButton from '../../components/Button/ClearButton';
+import firebase from 'firebase';
 
 class StoresScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -74,6 +76,10 @@ class StoresScreen extends React.Component {
             contentContainerStyle={styles.container}
           >
             {this.renderStoreCard()}
+            <ClearButton
+              handleClick={() => this.props.loginAnon()}
+              Title="Login as guest"
+            />
           </ScrollView>
           <View
             style={{
@@ -97,7 +103,7 @@ export default connect(
   state => ({
     stores: state.stores,
   }),
-  { fetchStores },
+  { fetchStores, loginAnon },
 )(StoresScreen);
 
 const styles = StyleSheet.create({
