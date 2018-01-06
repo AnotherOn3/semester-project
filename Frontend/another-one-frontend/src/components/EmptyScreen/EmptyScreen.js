@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
   content: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '50%',
+    marginTop: '25%',
+    // flex: 1,
     borderRadius: 8,
     elevation: 5,
     shadowColor: 'black',

@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
-import Header from '../../components/Header/Header';
+import ProductsHeader from '../../components/Header/ProductsHeader';
 import { fetchProducts } from './actions';
 import { LinearGradient, AppLoading } from 'expo';
 import {
@@ -16,9 +16,9 @@ import Notification from '../../components/Notification/Notification';
 class ProductsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
-      <Header
+      <ProductsHeader
         title="Products"
-        imageUri={require('../../../assets/images/products-inactive.png')}
+        imageUri={require('../../../assets/images/products-inactive-header.png')}
       />
     ),
   });
@@ -32,7 +32,6 @@ class ProductsScreen extends React.Component {
 
   renderProductCard = () => {
     if (this.props.products) {
-      console.log(this.props.products);
       return this.props.products.products.map(product => (
         <ProductCard
           key={product.Id}
@@ -90,10 +89,10 @@ class ProductsScreen extends React.Component {
           </ScrollView>
           <View
             style={{
-              height: '30%',
+              height: '33%',
               width: '94%',
               borderTopColor: 'black',
-              borderTopWidth: 2,
+              borderTopWidth: 1,
               alignSelf: 'center',
               marginTop: 7,
             }}

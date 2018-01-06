@@ -9,7 +9,7 @@ import {
 import Styles from '../../shared/styles';
 import { LinearGradient } from 'expo';
 
-const Header = props => (
+const ProductsHeader = props => (
   <View style={styles.header}>
     <LinearGradient
       colors={['#190959', '#590921']}
@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 999999,
     flexDirection: 'row',
+    overflow: 'hidden',
   },
   image: {
     opacity: 0.6,
-    height: 50,
-    width: 105,
+    height: 46,
+    width: 56,
     position: 'absolute',
     top: '40%',
     left: '55%',
@@ -60,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header;
+export default ProductsHeader;

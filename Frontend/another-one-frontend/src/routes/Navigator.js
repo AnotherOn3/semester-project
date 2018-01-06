@@ -6,7 +6,6 @@ import ProductsScreen from '../screens/ProductsScreen/ProductsScreen';
 import ShoppingListScreen from '../screens/ShoppingListScreen/ShoppingListScreen';
 import Styles from '../shared/styles';
 import StoreProductsScreen from '../screens/StoreProductsScreen/StoreProductsScreen';
-import Header from '../components/Header/Header';
 
 const StoreProductsNavigator = StackNavigator({
   Home: {
@@ -14,6 +13,18 @@ const StoreProductsNavigator = StackNavigator({
   },
   Store: {
     screen: StoreProductsScreen,
+  },
+});
+
+const ProductsNavigator = StackNavigator({
+  Home: {
+    screen: ProductsScreen,
+  },
+});
+
+const ShoppingListNavigator = StackNavigator({
+  Home: {
+    screen: ShoppingListScreen,
   },
 });
 
@@ -25,7 +36,12 @@ const Navigator = TabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Image
             source={require('../../assets/images/store-inactive.png')}
-            style={{ height: 20, width: 40, tintColor: tintColor }}
+            style={{
+              height: 20,
+              width: 40,
+              tintColor: tintColor,
+              marginTop: Platform.OS === 'android' ? 15 : 0,
+            }}
           />
         ),
         tabBarLabel: 'Home',
@@ -33,24 +49,34 @@ const Navigator = TabNavigator(
     },
 
     Products: {
-      screen: ProductsScreen,
+      screen: ProductsNavigator,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('../../assets/images/products-inactive-tab.png')}
-            style={{ height: 20, width: 40, tintColor: tintColor }}
+            source={require('../../assets/images/products-inactive-header.png')}
+            style={{
+              height: 24,
+              width: 40,
+              tintColor: tintColor,
+              marginTop: Platform.OS === 'android' ? 15 : 0,
+            }}
           />
         ),
         tabBarLabel: 'Products',
       },
     },
     ShoppingList: {
-      screen: ShoppingListScreen,
+      screen: ShoppingListNavigator,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('../../assets/images/shopping-list-tab.png')}
-            style={{ height: 20, width: 40, tintColor: tintColor }}
+            source={require('../../assets/images/shopping-list-inactive-tab.png')}
+            style={{
+              height: 23,
+              width: 46,
+              tintColor: tintColor,
+              marginTop: Platform.OS === 'android' ? 15 : 0,
+            }}
           />
         ),
         tabBarLabel: 'Shopping List',
@@ -64,13 +90,21 @@ const Navigator = TabNavigator(
     swipeEnabled: true,
     tabBarOptions: {
       style: {
-        backgroundColor: Platform.OS === 'ios' ? 'transparent' : 'orange',
+        backgroundColor: 'transparent',
         height: 60,
         flex: Platform.OS === 'ios' ? 1 : 0,
         position: Platform.OS === 'android' ? 'absolute' : 'relative',
         left: Platform.OS === 'android' ? 0 : null,
         bottom: Platform.OS === 'android' ? 0 : null,
         right: Platform.OS === 'android' ? 0 : null,
+        shadowColor: 'transparent',
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        shadowOffset: {
+          height: 0,
+          width: 0,
+        },
+        elevation: 0,
       },
       activeTintColor: '#190559',
       inactiveTintColor: 'black',

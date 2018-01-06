@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, StyleSheet, Platform, Text } from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import Header from '../../components/Header/Header';
+import ShoppingListHeader from '../../components/Header/ShoppingListHeader';
 import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
 import ClearButton from '../../components/Button/ClearButton';
@@ -19,9 +19,9 @@ import EmptyScreen from '../../components/EmptyScreen/EmptyScreen';
 class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
-      <Header
+      <ShoppingListHeader
         title="Shopping List"
-        imageUri={require('../../../assets/images/shopping-list-inactive.png')}
+        imageUri={require('../../../assets/images/shopping-list-inactive-header.png')}
       />
     ),
   });
@@ -138,7 +138,7 @@ class ShoppingListScreen extends React.Component {
               width: '94%',
               height: '10%',
               borderTopColor: 'black',
-              borderTopWidth: 2,
+              borderTopWidth: 1,
               alignSelf: 'center',
               marginTop: 7,
             }}

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import StoreProductCard from '../../components/StoreProductCard/StoreProductCard';
-import Header from '../../components/Header/Header';
+import StoresHeader from '../../components/Header/StoresHeader';
 import { fetchStoreProducts } from './actions';
 import Notification from '../../components/Notification/Notification';
 import {
@@ -15,11 +15,11 @@ import { LinearGradient, AppLoading } from 'expo';
 class StoreProductsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
-      <Header
+      <StoresHeader
         goBack={() => navigation.goBack()}
         chevronBack={require('../../../assets/images/chevron-back.png')}
         title={navigation.state.params.name}
-        imageUri={require('../../../assets/images/store-inactive.png')}
+        imageUri={require('../../../assets/images/store-inactive-header.png')}
       />
     ),
   });
@@ -97,9 +97,9 @@ class StoreProductsScreen extends React.Component {
           <View
             style={{
               width: '94%',
-              height: '30%',
+              height: '33%',
               borderTopColor: 'black',
-              borderTopWidth: 2,
+              borderTopWidth: 1,
               alignSelf: 'center',
               marginTop: 7,
             }}

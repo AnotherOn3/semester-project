@@ -32,7 +32,6 @@ export default (state = initState, action) => {
     case LOGIN_ANON_REQUEST:
       return initState;
     case LOGIN_ANON_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         loading: false,

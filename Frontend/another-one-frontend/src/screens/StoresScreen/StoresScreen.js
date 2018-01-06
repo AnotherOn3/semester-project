@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import StoreCard from '../../components/StoreCard/StoreCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct';
-import Header from '../../components/Header/Header';
+import StoresHeader from '../../components/Header/StoresHeader';
 import { fetchStores, loginAnon } from './actions';
 import { LinearGradient } from 'expo';
 import Notification from '../../components/Notification/Notification';
@@ -12,9 +12,9 @@ import { AppLoading } from 'expo';
 class StoresScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
-      <Header
+      <StoresHeader
         title="Stores"
-        imageUri={require('../../../assets/images/store-inactive.png')}
+        imageUri={require('../../../assets/images/store-inactive-header.png')}
       />
     ),
   });
@@ -82,17 +82,13 @@ class StoresScreen extends React.Component {
             contentContainerStyle={styles.container}
           >
             {this.renderStoreCard()}
-            <ClearButton
-              handleClick={() => this.props.loginAnon()}
-              Title="Login as guest"
-            />
           </ScrollView>
           <View
             style={{
-              height: '30%',
+              height: '33%',
               width: '94%',
               borderTopColor: 'black',
-              borderTopWidth: 2,
+              borderTopWidth: 1,
               alignSelf: 'center',
               marginTop: 7,
             }}
