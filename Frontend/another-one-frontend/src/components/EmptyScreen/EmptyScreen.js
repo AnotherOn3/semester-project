@@ -5,7 +5,6 @@ import ClearButton from '../Button/ClearButton';
 import { withNavigation } from 'react-navigation';
 
 const EmptyScreen = props => {
-  console.log(props);
   return (
     <View style={styles.container}>
       <View style={styles.content}>

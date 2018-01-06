@@ -59,17 +59,16 @@ class ShoppingListScreen extends React.Component {
 
   renderProductCard = () => {
     const { shoppingList } = this.props.shoppingList;
-    console.log(shoppingList);
     if (shoppingList.length > 0) {
       return shoppingList.map((item, index) => (
         <ProductCard
-          key={(item.id, index)}
-          productName={item.name}
-          shopImageUrl={item.shopImage}
-          productImageUrl={item.image}
-          productQuantity={item.quantity}
-          productQuantityType={item.quantityType}
-          productPrice={item.price}
+          key={(item.Id, index)}
+          productName={item.Name}
+          shopImageUrl={item.StoreImage}
+          productImageUrl={item.Picture}
+          productQuantity={item.Quantity}
+          productQuantityType={item.Type}
+          productPrice={item.Price}
           cardTitle="-"
           handleStorage={() => this.deleteItem(item, index)}
         />
@@ -82,7 +81,7 @@ class ShoppingListScreen extends React.Component {
   renderPrice = () => {
     let price = 0;
     this.props.shoppingList.shoppingList.map(item => {
-      price += item.price;
+      price += item.Price;
     });
     return price;
     this.setState({ price: price });
@@ -147,7 +146,7 @@ class ShoppingListScreen extends React.Component {
         </View>
       );
     } else {
-      return <Text>Loading...</Text>;
+      return <AppLoading />;
     }
   }
 }

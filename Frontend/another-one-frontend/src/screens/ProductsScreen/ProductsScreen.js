@@ -5,7 +5,7 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
 import { fetchProducts } from './actions';
-import { LinearGradient } from 'expo';
+import { LinearGradient, AppLoading } from 'expo';
 import {
   addItem,
   clearProductsNotification,
@@ -32,19 +32,22 @@ class ProductsScreen extends React.Component {
 
   renderProductCard = () => {
     if (this.props.products) {
+      console.log(this.props.products);
       return this.props.products.products.map(product => (
         <ProductCard
-          key={product.id}
-          productName={product.name}
-          shopImageUrl={product.shopImage}
-          productImageUrl={product.image}
-          productQuantity={product.quantity}
-          productQuantityType={product.quantityType}
-          productPrice={product.price}
+          key={product.Id}
+          productName={product.Name}
+          shopImageUrl={product.StoreImage}
+          productImageUrl={product.Picture}
+          productQuantity={product.Quantity}
+          productQuantityType={product.Type}
+          productPrice={product.Price}
           cardTitle="+"
           handleStorage={() => store.dispatch(addItem(product))}
         />
       ));
+    } else {
+      return <AppLoading />;
     }
   };
 
@@ -98,7 +101,7 @@ class ProductsScreen extends React.Component {
         </View>
       );
     } else {
-      return <View>Loading...</View>;
+      return <AppLoading />;
     }
   }
 }

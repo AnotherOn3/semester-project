@@ -6,6 +6,7 @@ import {
   REMOVE_ITEM,
   CLEAR_PRODUCTS_NOTIFICATION,
   CLEAR_SHOPPING_LIST_NOTIFICATION,
+  CLEAR_STORE_PRODUCTS_NOTIFICATION,
 } from './actions';
 
 const initState = {
@@ -14,6 +15,7 @@ const initState = {
   loading: true,
   productsNotification: '',
   shoppingListNotification: '',
+  storeProductsNotification: '',
 };
 
 export default (state = initState, action) => {
@@ -26,7 +28,10 @@ export default (state = initState, action) => {
         shoppingList: [...state.shoppingList, action.payload],
         loading: false,
         productsNotification: `${
-          action.payload.name
+          action.payload.Name
+        } has been added to shopping list`,
+        storeProductsNotification: `${
+          action.payload.Name
         } has been added to shopping list`,
       };
     case ADD_ITEM_ERROR:
@@ -44,9 +49,7 @@ export default (state = initState, action) => {
     case REMOVE_ITEM:
       return {
         ...state,
-        shoppingListNotification: `${
-          action.payload.item.name
-        } has been removed from shopping list`,
+        shoppingListNotification: '',
         shoppingList: [
           ...state.shoppingList.slice(0, action.payload.index),
           ...state.shoppingList.slice(action.payload.index + 1),
@@ -62,6 +65,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         shoppingListNotification: '',
+      };
+    case CLEAR_STORE_PRODUCTS_NOTIFICATION:
+      return {
+        ...state,
+        storeProductsNotification: '',
       };
     default:
       return state;

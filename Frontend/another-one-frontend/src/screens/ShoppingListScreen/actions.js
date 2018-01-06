@@ -6,6 +6,8 @@ export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const CLEAR_PRODUCTS_NOTIFICATION = 'CLEAR_PRODUCTS_NOTIFICATION';
 export const CLEAR_SHOPPING_LIST_NOTIFICATION =
   'CLEAR_SHOPPING_LIST_NOTIFICATION';
+export const CLEAR_STORE_PRODUCTS_NOTIFICATION =
+  'CLEAR_STORE_PRODUCTS_NOTIFICATION';
 
 function addItemRequest(item) {
   return {
@@ -53,6 +55,12 @@ function clearShoppingListNotificationRequest() {
   };
 }
 
+function clearStoreProductsNotificationRequest() {
+  return {
+    type: CLEAR_STORE_PRODUCTS_NOTIFICATION,
+  };
+}
+
 export function addItem(item) {
   return async function(dispatch) {
     try {
@@ -84,5 +92,11 @@ export function clearProductsNotification() {
 export function clearShoppingListNotification() {
   return async function(dispatch) {
     return dispatch(clearShoppingListNotificationRequest());
+  };
+}
+
+export function clearStoreProductsNotification() {
+  return async function(dispatch) {
+    return dispatch(clearStoreProductsNotificationRequest());
   };
 }

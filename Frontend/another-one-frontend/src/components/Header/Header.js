@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Styles from '../../shared/styles';
 import { LinearGradient } from 'expo';
 
@@ -17,6 +23,9 @@ const Header = props => (
         width: '100%',
       }}
     />
+    <TouchableWithoutFeedback onPress={props.goBack}>
+      <Image style={styles.chevron} source={props.chevronBack} />
+    </TouchableWithoutFeedback>
     <Image source={props.imageUri} style={styles.image} />
     <Text style={styles.title}>{props.title}</Text>
   </View>
@@ -29,6 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999999,
+    flexDirection: 'row',
   },
   image: {
     opacity: 0.6,
@@ -43,6 +53,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     backgroundColor: 'transparent',
+  },
+  chevron: {
+    position: 'absolute',
+    left: 30,
   },
 });
 
