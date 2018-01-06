@@ -12,46 +12,46 @@ import PopularProduct from '../PopularProduct/PopularProduct';
 
 const StoreCard = props => {
   return (
-    <View style={styles.cardContainer}>
-      <View style={styles.cardLeftContainer}>
-        <Text style={styles.storeName}>{props.storeName}</Text>
-        <Image
-          style={styles.shopImageStyle}
-          source={{ uri: props.shopImageUrl }}
-        />
-        <View>
-          <Text
-            style={{
-              fontFamily: Styles.SemiBold,
-              textAlign: 'center',
-            }}
-          >
-            {props.discountNumber}
-          </Text>
-          <Text
-            style={{
-              fontFamily: Styles.SemiBold,
-              textAlign: 'center',
-            }}
-          >
-            Discounts
-          </Text>
+    <TouchableWithoutFeedback onPress={props.handleNavigation}>
+      <View style={styles.cardContainer}>
+        <View style={styles.cardLeftContainer}>
+          <Text style={styles.storeName}>{props.storeName}</Text>
+          <Image
+            style={styles.shopImageStyle}
+            source={{ uri: props.shopImageUrl }}
+          />
+          <View>
+            <Text
+              style={{
+                fontFamily: Styles.SemiBold,
+                textAlign: 'center',
+              }}
+            >
+              {props.discountNumber}
+            </Text>
+            <Text
+              style={{
+                fontFamily: Styles.SemiBold,
+                textAlign: 'center',
+              }}
+            >
+              Discounts
+            </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.cardMiddleContainer}>
-        <Text style={styles.popularDiscountsText}>Popular discounts</Text>
-        <View>{props.popularProduct}</View>
-      </View>
+        <View style={styles.cardMiddleContainer}>
+          <Text style={styles.popularDiscountsText}>Popular discounts</Text>
+          <View>{props.popularProduct}</View>
+        </View>
 
-      <View style={styles.cardRightContainer}>
-        <TouchableWithoutFeedback onPress={props.handleNavigation}>
+        <View style={styles.cardRightContainer}>
           <Image
             style={styles.chevronStyle}
             source={require('../../../assets/images/chevron.png')}
           />
-        </TouchableWithoutFeedback>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

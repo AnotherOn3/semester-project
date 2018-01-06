@@ -4,13 +4,20 @@ import { connect } from 'react-redux';
 import StoreProductCard from '../../components/StoreProductCard/StoreProductCard';
 import Header from '../../components/Header/Header';
 import { fetchStoreProducts } from './actions';
+import Notification from '../../components/Notification/Notification';
+import {
+  addItem,
+  clearStoreProductsNotification,
+} from '../ShoppingListScreen/actions';
 import Api from '../../Utils/api';
-import { LinearGradient } from 'expo';
+import { LinearGradient, AppLoading } from 'expo';
 
 class StoreProductsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
       <Header
+        goBack={() => navigation.goBack()}
+        chevronBack={require('../../../assets/images/chevron-back.png')}
         title={navigation.state.params.name}
         imageUri={require('../../../assets/images/store-inactive.png')}
       />
@@ -19,33 +26,47 @@ class StoreProductsScreen extends React.Component {
 
   state = {
     data: {},
+    loaded: false,
   };
 
   async componentDidMount() {
+    setInterval(() => {
+      this.props.clearStoreProductsNotification();
+    }, 5000);
     const { id } = this.props.navigation.state.params;
     const data = await Api.getStoreProducts(id);
-    this.setState({ data });
+    this.setState({ data: data, loaded: true });
   }
 
   renderStoreProductCard = () => {
-    if (this.state.data) {
-      const store = this.state.data[0];
-      if (store !== undefined) {
-        return store.storeProducts.map(product => (
-          <StoreProductCard
-            key={product.id}
-            productName={product.name}
-            productImageUrl={product.image}
-            productQuantity={product.quantity}
-            productQuantityType={product.quantityType}
-            productPrice={product.price}
-          />
-        ));
-      } else {
-        console.log('I am undefined');
-      }
+    const store = this.state.data;
+    if (this.state.loaded) {
+      return store.Product.map(product => (
+        <StoreProductCard
+          key={product.Id}
+          productName={product.Name}
+          productImageUrl={product.Picture}
+          productQuantity={product.Quantity}
+          productQuantityType={product.Type}
+          productPrice={product.Price}
+          handleStorage={() => this.props.addItem(product)}
+        />
+      ));
     } else {
-      console.log('HEllo');
+      return <AppLoading />;
+    }
+  };
+
+  renderNotification = () => {
+    if (this.props.shoppingList.storeProductsNotification !== '') {
+      return (
+        <Notification
+          hide={() => this.props.clearStoreProductsNotification()}
+          text={this.props.shoppingList.storeProductsNotification}
+        />
+      );
+    } else {
+      return null;
     }
   };
 
@@ -53,6 +74,7 @@ class StoreProductsScreen extends React.Component {
     if (this.state.data) {
       return (
         <View>
+          {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
@@ -72,10 +94,20 @@ class StoreProductsScreen extends React.Component {
           >
             {this.renderStoreProductCard()}
           </ScrollView>
+          <View
+            style={{
+              width: '94%',
+              height: '30%',
+              borderTopColor: 'black',
+              borderTopWidth: 2,
+              alignSelf: 'center',
+              marginTop: 7,
+            }}
+          />
         </View>
       );
     } else {
-      return <View>Loading...</View>;
+      return <AppLoading />;
     }
   }
 }
@@ -83,13 +115,13 @@ class StoreProductsScreen extends React.Component {
 export default connect(
   state => ({
     storeProducts: state.storeProducts,
+    shoppingList: state.shoppingList,
   }),
-  { fetchStoreProducts },
+  { fetchStoreProducts, addItem, clearStoreProductsNotification },
 )(StoreProductsScreen);
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
   },

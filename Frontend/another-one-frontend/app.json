@@ -5,17 +5,20 @@
     "slug": "another-one",
     "privacy": "public",
     "sdkVersion": "22.0.0",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#FFA500"
     },
     "packagerOpts": {
       "assetExts": ["ttf", "mp4"]
+    },
+    "android": {
+      "package": "com.GintarasArstikaitis.AnotherOne"
     },
     "ios": {
       "supportsTablet": true

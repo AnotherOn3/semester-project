@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './src/redux_config/store';
 import StoreScreen from './src/screens/StoresScreen/StoresScreen';
 import StoreProductsNavigator from './src/routes/Navigator';
-import { Font } from 'expo';
+import { Font, AppLoading } from 'expo';
 import { persistStore } from 'redux-persist';
 import firebase from 'firebase';
 
@@ -53,7 +53,7 @@ export default class App extends React.Component {
         </Provider>
       );
     } else {
-      return null;
+      return <AppLoading />;
     }
   }
 }

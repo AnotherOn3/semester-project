@@ -5,9 +5,13 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
 import Header from '../../components/Header/Header';
 import { fetchProducts } from './actions';
-import { LinearGradient } from 'expo';
-import { addItem } from '../ShoppingListScreen/actions';
+import { LinearGradient, AppLoading } from 'expo';
+import {
+  addItem,
+  clearProductsNotification,
+} from '../ShoppingListScreen/actions';
 import store from '../../redux_config/store';
+import Notification from '../../components/Notification/Notification';
 
 class ProductsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -19,25 +23,44 @@ class ProductsScreen extends React.Component {
     ),
   });
 
-  async componentDidMount() {
+  componentDidMount() {
     this.props.fetchProducts();
+    setInterval(() => {
+      this.props.clearProductsNotification();
+    }, 5000);
   }
 
   renderProductCard = () => {
     if (this.props.products) {
+      console.log(this.props.products);
       return this.props.products.products.map(product => (
         <ProductCard
-          key={product.id}
-          productName={product.name}
-          shopImageUrl={product.shopImage}
-          productImageUrl={product.image}
-          productQuantity={product.quantity}
-          productQuantityType={product.quantityType}
-          productPrice={product.price}
+          key={product.Id}
+          productName={product.Name}
+          shopImageUrl={product.StoreImage}
+          productImageUrl={product.Picture}
+          productQuantity={product.Quantity}
+          productQuantityType={product.Type}
+          productPrice={product.Price}
           cardTitle="+"
           handleStorage={() => store.dispatch(addItem(product))}
         />
       ));
+    } else {
+      return <AppLoading />;
+    }
+  };
+
+  renderNotification = () => {
+    if (this.props.shoppingList.productsNotification !== '') {
+      return (
+        <Notification
+          hide={() => this.props.clearProductsNotification()}
+          text={this.props.shoppingList.productsNotification}
+        />
+      );
+    } else {
+      return null;
     }
   };
 
@@ -45,6 +68,7 @@ class ProductsScreen extends React.Component {
     if (this.props.products) {
       return (
         <View>
+          {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
@@ -77,7 +101,7 @@ class ProductsScreen extends React.Component {
         </View>
       );
     } else {
-      return <View>Loading...</View>;
+      return <AppLoading />;
     }
   }
 }
@@ -87,7 +111,7 @@ export default connect(
     products: state.products,
     shoppingList: state.shoppingList,
   }),
-  { fetchProducts, addItem },
+  { fetchProducts, addItem, clearProductsNotification },
 )(ProductsScreen);
 
 const styles = StyleSheet.create({

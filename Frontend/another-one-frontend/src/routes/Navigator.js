@@ -8,10 +8,19 @@ import Styles from '../shared/styles';
 import StoreProductsScreen from '../screens/StoreProductsScreen/StoreProductsScreen';
 import Header from '../components/Header/Header';
 
+const StoreProductsNavigator = StackNavigator({
+  Home: {
+    screen: StoresScreen,
+  },
+  Store: {
+    screen: StoreProductsScreen,
+  },
+});
+
 const Navigator = TabNavigator(
   {
     Stores: {
-      screen: StoresScreen,
+      screen: StoreProductsNavigator,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
@@ -28,7 +37,7 @@ const Navigator = TabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('../../assets/images/products-inactive.png')}
+            source={require('../../assets/images/products-inactive-tab.png')}
             style={{ height: 20, width: 40, tintColor: tintColor }}
           />
         ),
@@ -40,7 +49,7 @@ const Navigator = TabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('../../assets/images/shopping-list-inactive.png')}
+            source={require('../../assets/images/shopping-list-tab.png')}
             style={{ height: 20, width: 40, tintColor: tintColor }}
           />
         ),
@@ -72,13 +81,4 @@ const Navigator = TabNavigator(
   },
 );
 
-const StoreProductsNavigator = StackNavigator({
-  Home: {
-    screen: Navigator,
-  },
-  Store: {
-    screen: StoreProductsScreen,
-  },
-});
-
-export default StoreProductsNavigator;
+export default Navigator;

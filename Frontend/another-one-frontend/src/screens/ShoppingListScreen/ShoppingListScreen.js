@@ -7,7 +7,14 @@ import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
 import ClearButton from '../../components/Button/ClearButton';
 import Styles from '../../shared/styles';
-import { addItem, clearItems, removeItem } from './actions';
+import {
+  addItem,
+  clearItems,
+  removeItem,
+  clearShoppingListNotification,
+} from './actions';
+import ShoppingListNotification from '../../components/Notification/ShoppingListNotification';
+import EmptyScreen from '../../components/EmptyScreen/EmptyScreen';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -19,50 +26,93 @@ class ShoppingListScreen extends React.Component {
     ),
   });
 
+  componentDidMount() {
+    setInterval(() => {
+      this.props.clearShoppingListNotification();
+    }, 5000);
+  }
+
   state = {
     price: 0,
   };
 
-  deleteItem = index => {
-    this.props.removeItem(index);
+  deleteItem = (item, index) => {
+    this.props.removeItem(item, index);
   };
 
   clearItems = () => {
     this.props.clearItems();
   };
 
+  renderNotification = () => {
+    if (this.props.shoppingList.shoppingListNotification !== '') {
+      return (
+        <ShoppingListNotification
+          hide={() => this.props.clearShoppingListNotification()}
+          text={this.props.shoppingList.shoppingListNotification}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
+
   renderProductCard = () => {
     const { shoppingList } = this.props.shoppingList;
-    if (shoppingList) {
+    if (shoppingList.length > 0) {
       return shoppingList.map((item, index) => (
         <ProductCard
-          key={(item.id, index)}
-          productName={item.name}
-          shopImageUrl={item.shopImage}
-          productImageUrl={item.image}
-          productQuantity={item.quantity}
-          productQuantityType={item.quantityType}
-          productPrice={item.price}
+          key={(item.Id, index)}
+          productName={item.Name}
+          shopImageUrl={item.StoreImage}
+          productImageUrl={item.Picture}
+          productQuantity={item.Quantity}
+          productQuantityType={item.Type}
+          productPrice={item.Price}
           cardTitle="-"
-          handleStorage={() => this.deleteItem(index)}
+          handleStorage={() => this.deleteItem(item, index)}
         />
       ));
+    } else {
+      return <EmptyScreen />;
     }
   };
 
   renderPrice = () => {
     let price = 0;
     this.props.shoppingList.shoppingList.map(item => {
-      price += item.price;
+      price += item.Price;
     });
     return price;
     this.setState({ price: price });
   };
 
+  renderBottom = () => {
+    if (this.props.shoppingList.shoppingList.length > 0) {
+      return (
+        <View style={styles.bottomContainer}>
+          <View>
+            <ClearButton
+              handleClick={() => this.clearItems()}
+              Title="Clear all"
+            />
+          </View>
+          <View>
+            <Text style={styles.text}>Full price:</Text>
+            <Text style={styles.text}>{this.renderPrice()} ,-DKK</Text>
+          </View>
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   render() {
-    if (this.props.shoppingList) {
+    if (this.props.shoppingList.shoppingList) {
       return (
         <View style={{ flex: 1 }}>
+          {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
@@ -82,18 +132,7 @@ class ShoppingListScreen extends React.Component {
           >
             {this.renderProductCard()}
           </ScrollView>
-          <View style={styles.bottomContainer}>
-            <View>
-              <ClearButton
-                handleClick={() => this.clearItems()}
-                Title="Clear all"
-              />
-            </View>
-            <View>
-              <Text style={styles.text}>Full price:</Text>
-              <Text style={styles.text}>{this.renderPrice()} ,-DKK</Text>
-            </View>
-          </View>
+          {this.renderBottom()}
           <View
             style={{
               width: '94%',
@@ -107,7 +146,7 @@ class ShoppingListScreen extends React.Component {
         </View>
       );
     } else {
-      return <Text>Loading...</Text>;
+      return <AppLoading />;
     }
   }
 }
@@ -116,7 +155,7 @@ export default connect(
   state => ({
     shoppingList: state.shoppingList,
   }),
-  { addItem, clearItems, removeItem },
+  { addItem, clearItems, removeItem, clearShoppingListNotification },
 )(ShoppingListScreen);
 
 const styles = StyleSheet.create({
