@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import StoreCard from '../../components/StoreCard/StoreCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct';
@@ -8,7 +8,7 @@ import { fetchStores, loginAnon } from './actions';
 import { LinearGradient } from 'expo';
 import Notification from '../../components/Notification/Notification';
 import { AppLoading } from 'expo';
-
+import { Constants } from 'expo';
 class StoresScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
@@ -64,6 +64,7 @@ class StoresScreen extends React.Component {
     if (this.props.stores) {
       return (
         <View>
+          <StatusBar barStyle="light-content" />
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{

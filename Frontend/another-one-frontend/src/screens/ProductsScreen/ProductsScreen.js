@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  StatusBar,
+} from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
@@ -67,6 +73,7 @@ class ProductsScreen extends React.Component {
     if (this.props.products) {
       return (
         <View>
+          <StatusBar barStyle="light-content" />
           {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}

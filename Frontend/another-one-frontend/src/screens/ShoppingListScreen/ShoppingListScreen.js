@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Platform, Text } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  Text,
+  StatusBar,
+} from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import ShoppingListHeader from '../../components/Header/ShoppingListHeader';
@@ -112,6 +119,7 @@ class ShoppingListScreen extends React.Component {
     if (this.props.shoppingList.shoppingList) {
       return (
         <View style={{ flex: 1 }}>
+          <StatusBar barStyle="light-content" />
           {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import StoreProductCard from '../../components/StoreProductCard/StoreProductCard';
 import StoresHeader from '../../components/Header/StoresHeader';
@@ -74,6 +74,7 @@ class StoreProductsScreen extends React.Component {
     if (this.state.data) {
       return (
         <View>
+          <StatusBar barStyle="light-content" />
           {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
