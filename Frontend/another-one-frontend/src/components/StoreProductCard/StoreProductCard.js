@@ -48,7 +48,7 @@ const StoreProductCard = props => {
         </View>
       </View>
       <View style={styles.cardRightContainer}>
-        <ShopCardButton Title="+" />
+        <ShopCardButton Title="+" handleClick={props.handleStorage} />
       </View>
     </View>
   );

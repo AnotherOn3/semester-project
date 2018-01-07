@@ -1,54 +1,133 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  Text,
+  StatusBar,
+} from 'react-native';
 import { connect } from 'react-redux';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import PopularProduct from '../../components/PopularProduct/PopularProduct'; // we dont need this right?
-import Header from '../../components/Header/Header';
+import ShoppingListHeader from '../../components/Header/ShoppingListHeader';
 import { fetchProducts } from '../ProductsScreen/actions';
 import { LinearGradient } from 'expo';
+import ClearButton from '../../components/Button/ClearButton';
+import Styles from '../../shared/styles';
+import {
+  addItem,
+  clearItems,
+  removeItem,
+  clearShoppingListNotification,
+} from './actions';
+import ShoppingListNotification from '../../components/Notification/ShoppingListNotification';
+import EmptyScreen from '../../components/EmptyScreen/EmptyScreen';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: (
-      <Header
+      <ShoppingListHeader
         title="Shopping List"
-        imageUri={require('../../../assets/images/store-inactive.png')}
+        imageUri={require('../../../assets/images/shopping-list-inactive-header.png')}
       />
     ),
   });
 
   componentDidMount() {
-    this.props.fetchProducts();
+    setInterval(() => {
+      this.props.clearShoppingListNotification();
+    }, 5000);
   }
 
+  state = {
+    price: 0,
+  };
+
+  deleteItem = (item, index) => {
+    this.props.removeItem(item, index);
+  };
+
+  clearItems = () => {
+    this.props.clearItems();
+  };
+
+  renderNotification = () => {
+    if (this.props.shoppingList.shoppingListNotification !== '') {
+      return (
+        <ShoppingListNotification
+          hide={() => this.props.clearShoppingListNotification()}
+          text={this.props.shoppingList.shoppingListNotification}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
+
   renderProductCard = () => {
-    if (this.props.products) {
-      return this.props.products.products.map(product => (
+    const { shoppingList } = this.props.shoppingList;
+    if (shoppingList.length > 0) {
+      return shoppingList.map((item, index) => (
         <ProductCard
-          key={product.id}
-          productName={product.name}
-          shopImageUrl={product.shopImage}
-          productImageUrl={product.image}
-          productQuantity={product.quantity}
-          productQuantityType={product.quantityType}
-          productPrice={product.price}
+          key={(item.Id, index)}
+          productName={item.Name}
+          shopImageUrl={item.StoreImage}
+          productImageUrl={item.Picture}
+          productQuantity={item.Quantity}
+          productQuantityType={item.Type}
+          productPrice={item.Price}
           cardTitle="-"
+          handleStorage={() => this.deleteItem(item, index)}
         />
       ));
+    } else {
+      return <EmptyScreen />;
+    }
+  };
+
+  renderPrice = () => {
+    let price = 0;
+    this.props.shoppingList.shoppingList.map(item => {
+      price += item.Price;
+    });
+    return price;
+    this.setState({ price: price });
+  };
+
+  renderBottom = () => {
+    if (this.props.shoppingList.shoppingList.length > 0) {
+      return (
+        <View style={styles.bottomContainer}>
+          <View>
+            <ClearButton
+              handleClick={() => this.clearItems()}
+              Title="Clear all"
+            />
+          </View>
+          <View>
+            <Text style={styles.text}>Full price:</Text>
+            <Text style={styles.text}>{this.renderPrice()} ,-DKK</Text>
+          </View>
+        </View>
+      );
+    } else {
+      return null;
     }
   };
 
   render() {
-    if (this.props.products) {
+    if (this.props.shoppingList.shoppingList) {
       return (
-        <View>
+        <View style={{ flex: 1 }}>
+          <StatusBar barStyle="light-content" />
+          {this.renderNotification()}
           <LinearGradient
             colors={['#FBBB3B', '#F19143']}
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
-              bottom: 100,
+              bottom: 0,
               alignItems: 'center',
               flex: 1,
               width: '100%',
@@ -61,12 +140,13 @@ class ShoppingListScreen extends React.Component {
           >
             {this.renderProductCard()}
           </ScrollView>
+          {this.renderBottom()}
           <View
             style={{
-              height: '30%',
               width: '94%',
+              height: '10%',
               borderTopColor: 'black',
-              borderTopWidth: 2,
+              borderTopWidth: 1,
               alignSelf: 'center',
               marginTop: 7,
             }}
@@ -74,16 +154,16 @@ class ShoppingListScreen extends React.Component {
         </View>
       );
     } else {
-      return <View>Loading...</View>;
+      return <AppLoading />;
     }
   }
 }
 
 export default connect(
   state => ({
-    products: state.products,
+    shoppingList: state.shoppingList,
   }),
-  { fetchProducts },
+  { addItem, clearItems, removeItem, clearShoppingListNotification },
 )(ShoppingListScreen);
 
 const styles = StyleSheet.create({
@@ -91,5 +171,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 60,
+  },
+  bottomContainer: {
+    marginTop: 10,
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+  },
+  text: {
+    backgroundColor: 'transparent',
+    fontSize: 16,
+    color: 'white',
+    fontFamily: Styles.SemiBold,
+    textAlign: 'right',
   },
 });

@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import { autoRehydrate } from 'redux-persist';
 import reducers from './reducers';
 
 const middlewares = [thunk];
@@ -13,5 +14,5 @@ const middlewares = [thunk];
 export default createStore(
   reducers,
   undefined,
-  compose(applyMiddleware(...middlewares)),
+  compose(applyMiddleware(...middlewares), autoRehydrate()),
 );

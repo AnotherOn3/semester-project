@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import Styles from '../../shared/styles';
 
-const ShopCardButton = props => {
+const ClearButton = props => {
   return (
     <TouchableOpacity
       onPress={props.handleClick}
@@ -18,7 +18,8 @@ const ShopCardButton = props => {
 const styles = StyleSheet.create({
   ButtonContainer: {
     backgroundColor: '#29094A',
-    width: 35,
+    paddingLeft: 10,
+    paddingRight: 10,
     height: 35,
     justifyContent: 'center',
     alignItems: 'center',
@@ -35,8 +36,9 @@ const styles = StyleSheet.create({
   ButtonTitle: {
     color: 'white',
     fontSize: 20,
-    fontFamily: Styles.Bold,
+    fontFamily: Styles.SemiBold,
+    fontSize: 14,
   },
 });
 
-export default ShopCardButton;
+export default ClearButton;
