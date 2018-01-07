@@ -28,6 +28,7 @@ namespace Another_one_backend.Models
         public string Type { get; set; }
         public int StoreId { get; set; }
         public int Price { get; set; }
+        public string StoreImage { get; set; }
         [JsonIgnore]
         public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
