@@ -3,7 +3,7 @@ import axios from 'axios';
 export async function get(resource) {
   try {
     return await axios.get(
-      `http://anotherone-env.eu-west-2.elasticbeanstalk.com/api/${resource}`,
+      `mongodb://test:test@ds139187.mlab.com:39187/another-one/${resource}`,
     );
   } catch (error) {
     throw new Error('error fetching the resource', error);
@@ -13,7 +13,7 @@ export async function get(resource) {
 export async function getById(resource, id) {
   try {
     return await axios.get(
-      `http://anotherone-env.eu-west-2.elasticbeanstalk.com/api/${resource}/${id}`,
+      `mongodb://test:test@ds139187.mlab.com:39187/another-one/${resource}/${id}`,
     );
   } catch (error) {
     throw new Error('error fetching the resource', error);
