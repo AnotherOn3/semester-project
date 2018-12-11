@@ -2,9 +2,7 @@ import axios from 'axios';
 
 export async function get(resource) {
   try {
-    return await axios.get(
-      `mongodb://test:test@ds139187.mlab.com:39187/another-one/${resource}`,
-    );
+    return await axios.get(`http://localhost:3000/${resource}`);
   } catch (error) {
     throw new Error('error fetching the resource', error);
   }
@@ -12,9 +10,7 @@ export async function get(resource) {
 
 export async function getById(resource, id) {
   try {
-    return await axios.get(
-      `mongodb://test:test@ds139187.mlab.com:39187/another-one/${resource}/${id}`,
-    );
+    return await axios.get(`http://localhost:3000/${resource}/${id}`);
   } catch (error) {
     throw new Error('error fetching the resource', error);
   }

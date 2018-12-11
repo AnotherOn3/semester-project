@@ -23,16 +23,16 @@ class StoresScreen extends React.Component {
   }
 
   renderPopularProduct = store => {
-    return store.Product.map((product, index) => {
+    return store.storeProducts.map((product, index) => {
       if (index < 2) {
         return (
           <PopularProduct
-            key={product.Id + Math.random()}
-            imageUrl={product.Picture}
-            quantity={product.Quantity}
-            quantityType={product.Type}
-            price={product.Price}
-            productName={product.Name}
+            key={product._id}
+            imageUrl={product.picture}
+            quantity={product.quantity}
+            quantityType={product.type}
+            price={product.price}
+            productName={product.name}
           />
         );
       }
@@ -47,12 +47,12 @@ class StoresScreen extends React.Component {
     if (this.props.stores) {
       return this.props.stores.stores.map(store => (
         <StoreCard
-          key={store.Id + Math.random()}
-          storeName={store.Name}
-          shopImageUrl={store.Logo}
-          discountNumber={store.Product.length}
+          key={store._id}
+          storeName={store.name}
+          shopImageUrl={store.logo}
+          discountNumber={0}
           popularProduct={this.renderPopularProduct(store)}
-          handleNavigation={() => this.goToSingleStore(store.Id, store.Name)}
+          handleNavigation={() => this.goToSingleStore(store._id, store.name)}
         />
       ));
     } else {
